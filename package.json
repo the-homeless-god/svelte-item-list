@@ -1,6 +1,6 @@
 {
   "name": "svelte-achieve-list",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "List of achievements",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",
@@ -9,7 +9,8 @@
   "keywords": [
     "svelte",
     "achieve-list",
-    "svelte-list"
+    "svelte-list",
+    "svelte-achieve-list"
   ],
   "license": "MIT",
   "repository": "Zimtir/svelte-achieve-list",

@@ -6,6 +6,11 @@
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "author": "Marat Zimnurov",
+  "keywords": [
+    "svelte",
+    "achieve-list",
+    "svelte-list"
+  ],
   "license": "MIT",
   "repository": "Zimtir/svelte-achieve-list",
   "devDependencies": {

@@ -1,0 +1,4 @@
+node_modules
+public/bundle.*
+package-lock.json
+example/public/bundle.*

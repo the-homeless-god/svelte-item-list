@@ -1,19 +1,19 @@
 {
-  "name": "svelte-achieve-list",
+  "name": "svelte-item-list",
   "version": "1.0.1",
-  "description": "List of achievements",
+  "description": "Svelte item list",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "author": "Marat Zimnurov",
   "keywords": [
     "svelte",
-    "achieve-list",
+    "item-list",
     "svelte-list",
-    "svelte-achieve-list"
+    "svelte-item-list"
   ],
   "license": "MIT",
-  "repository": "Zimtir/svelte-achieve-list",
+  "repository": "Zimtir/svelte-item-list",
   "devDependencies": {
     "rollup": "^1.27.5",
     "rollup-plugin-node-resolve": "^5.2.0",

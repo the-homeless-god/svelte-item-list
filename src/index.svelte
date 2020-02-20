@@ -7,21 +7,21 @@
   export let pointProp = 'point'
   export let iconProp = 'icon'
 
-  let achievs = []
+  let items = []
 
   onMount(async () => {
-    achievs = await endpoint()
+    items = await endpoint()
   })
 </script>
 
 <style scoped>
-  .achieve-container {
+  .item-container {
     margin: 15px;
     display: flex;
     flex-wrap: wrap;
   }
 
-  .achieve-text {
+  .item-text {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -31,45 +31,45 @@
     align-items: center;
   }
 
-  .achieve-text img {
+  .item-text img {
     margin-left: 3px;
     margin-right: 12px;
     border-radius: 50%;
     width: 50px;
   }
 
-  .achieve-score {
+  .item-score {
     margin-left: auto;
     font-weight: 500;
   }
 
-  .achieve-container > span:nth-child(even) {
+  .item-container > span:nth-child(even) {
     background: rgb(248, 248, 248);
   }
 
-  .achieve-description {
+  .item-description {
     display: flex;
     flex-wrap: wrap;
     width: 80%;
   }
 
-  .achieve-description strong {
+  .item-description strong {
     width: 100%;
   }
 </style>
 
-<div class="achieve-container">
-  {#if achievs.length === 0}
+<div class="item-container">
+  {#if items.length === 0}
     <slot name="loading" />
   {:else}
-    {#each achievs as achieve}
-      <span class="achieve-text">
-        <img alt="icon" src={achieve[iconProp]} />
-        <div class="achieve-description">
-          <strong>{achieve[nameProp]}</strong>
-          <span>{achieve[descProp]}</span>
+    {#each items as item}
+      <span class="item-text">
+        <img alt="icon" src={item[iconProp]} />
+        <div class="item-description">
+          <strong>{item[nameProp]}</strong>
+          <span>{item[descProp]}</span>
         </div>
-        <span class="achieve-score">{achieve[pointProp]}</span>
+        <span class="item-score">{item[pointProp]}</span>
       </span>
     {/each}
   {/if}

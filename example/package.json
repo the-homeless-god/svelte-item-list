@@ -20,6 +20,6 @@
     "start:dev": "sirv public --dev"
   },
   "dependencies": {
-    "svelte-achieve-list": "^1.0.0"
+    "svelte-item-list": "^1.0.1"
   }
 }

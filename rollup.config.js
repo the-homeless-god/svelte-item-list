@@ -7,7 +7,7 @@ const input = 'src/index.svelte'
 export default [
   {
     input,
-    output: { file: pkg.main, format: 'umd', name: 'AchieveList' },
+    output: { file: pkg.main, format: 'umd', name: 'ItemList' },
     plugins: [svelte(), resolve()]
   },
   {

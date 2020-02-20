@@ -1,15 +1,15 @@
 [![npm][npm]][npm-url]
 
-Svelte. List of achievements.
+Svelte. Item list.
 
 ## Screenshot
 
-![Screenshot](https://raw.githubusercontent.com/Zimtir/svelte-achieve-list/master/assets/example.png 'Screenshot')
+![Screenshot](https://raw.githubusercontent.com/Zimtir/svelte-item-list/master/assets/example.png 'Screenshot')
 
 ## Install
 
 ```bash
-npm install --save svelte-achieve-list
+npm install --save svelte-item-list
 ```
 
 ## Example
@@ -20,11 +20,11 @@ Look at the [example folder][example-folder-url] for a basic working example.
 
 ```html
 <!-- App.html -->
-<AchieveList
+<ItemList
   endpoint={async () => {
     return [
       {
-        name: 'Achieve name',
+        name: 'Item name',
         icon: '/favicon.png',
         description: '',
         point: 100
@@ -32,19 +32,19 @@ Look at the [example folder][example-folder-url] for a basic working example.
     ]
   }}>
   <div slot="loading">...loading</div>
-</AchieveList>
+</ItemList>
 
 <script>
-  import AchieveList from 'svelte-achieve-list';
+  import ItemList from 'svelte-item-list';
 </script>
 ```
 
 ## API
 
-The achieve list component is the only export of the module.
+The item list component is the only export of the module.
 
 ```javascript
-import AchieveList from 'svelte-achieve-list'
+import ItemList from 'svelte-item-list'
 ```
 
 ###### Properties
@@ -57,6 +57,6 @@ import AchieveList from 'svelte-achieve-list'
 | `pointProp` | `point`       | The key of point property in the object by endpoint.      |
 | `iconProp`  | `icon`        | The key of icon property in the object by endpoint.       |
 
-[npm]: https://img.shields.io/npm/v/svelte-achieve-list.svg
-[npm-url]: https://npmjs.com/package/svelte-achieve-list
-[example-folder-url]: https://github.com/Zimtir/svelte-achieve-list/tree/master/example
+[npm]: https://img.shields.io/npm/v/svelte-item-list.svg
+[npm-url]: https://npmjs.com/package/svelte-item-list
+[example-folder-url]: https://github.com/Zimtir/svelte-item-list/tree/master/example

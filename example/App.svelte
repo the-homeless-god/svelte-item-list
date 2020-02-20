@@ -1,10 +1,10 @@
 <script>
-  import AchieveList from 'svelte-achieve-list'
+  import ItemList from 'svelte-item-list'
 </script>
 
-<AchieveList
+<ItemList
   endpoint={async () => {
-    return [{ name: 'Achieve name', icon: '/favicon.png', description: 'some dec', point: 10 }]
+    return [{ name: 'Item name', icon: '/favicon.png', description: 'some dec', point: 10 }]
   }}>
   <div slot="loading">...loading</div>
-</AchieveList>
+</ItemList>

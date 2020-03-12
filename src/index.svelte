@@ -99,7 +99,7 @@
     <slot name="header" />
 
     {#each paginatedItems as item}
-      <span clickFunc={() => clickFunc(item)} class:light={item[light]} class="item-text">
+      <span on:click={() => clickFunc(item)} class:light={item[light]} class="item-text">
         {#if needIndex}
           <span class="item-index">{item.index}</span>
         {/if}

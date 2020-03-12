@@ -3,3 +3,4 @@ public/bundle.*
 package-lock.json
 example/public/bundle.*
 dist
+.rpt2_cache

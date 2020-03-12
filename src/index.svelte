@@ -40,7 +40,7 @@
   onMount(() => initItems(endpoint, sortFunc))
 </script>
 
-<style scoped>
+<style>
   .item-container {
     margin: 15px;
     display: flex;

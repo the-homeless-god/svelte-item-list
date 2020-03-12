@@ -15,6 +15,7 @@
   export let pageSize = 10
   export let currentPage = 1
   export let boldIndex = 5
+
   export let sortFunc = (a, b) => {
     return a[pointProp] - b[pointProp]
   }
@@ -88,12 +89,27 @@
     text-align: right;
     margin-right: 8px;
   }
+
+  .item-header {
+    width: 100%;
+    margin: 0px 10px 15px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .item-header > * {
+    width: 100%;
+    margin: 0;
+  }
 </style>
 
 <div class="item-container">
   {#if items.length === 0}
     <slot name="loading" />
   {:else}
+    <span class="item-header">
+      <slot name="header" />
+    </span>
     {#each paginatedItems as item}
       <span class:light={item[light]} class="item-text">
         {#if needIndex}

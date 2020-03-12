@@ -46,7 +46,6 @@
 
   .item-container .item-text {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     width: 100%;
     padding: 10px;
@@ -73,7 +72,6 @@
   .item-container .item-description {
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
   }
 
   .item-container .item-description strong {

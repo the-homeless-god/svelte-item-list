@@ -17,6 +17,8 @@
   export let currentPage = 1
   export let boldIndex = 5
 
+  export let clickFunc = item => {}
+
   export let sortFunc = (a, b) => {
     return a[pointProp] - b[pointProp]
   }
@@ -97,7 +99,7 @@
     <slot name="header" />
 
     {#each paginatedItems as item}
-      <span class:light={item[light]} class="item-text">
+      <span clickFunc={() => clickFunc(item)} class:light={item[light]} class="item-text">
         {#if needIndex}
           <span class="item-index">{item.index}</span>
         {/if}

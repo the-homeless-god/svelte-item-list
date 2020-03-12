@@ -65,10 +65,11 @@ import ItemList from 'svelte-item-list'
 | `needPag`     | true          | Enable pagination under list of items or no               |
 | `currentPage` | 1             | Number of selected page by default at pagination          |
 | `pageSize`    | 10            | Count of items at one page inside pagination              |
-| `sortFunc`    | point - point | Function to sort list of items                            |
 | `needIndex`   | true          | Enable or disable indexes at left of item                 |
 | `boldIndex`   | 5             | Count of items with bold name                             |
 | `needPoint`   | true          | Show point field                                          |
+| `sortFunc`    | point - point | Function to sort list of items                            |
+| `clickFunc`   | return        | Function to catch the click at item                       |
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list

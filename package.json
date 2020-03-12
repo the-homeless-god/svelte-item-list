@@ -1,6 +1,6 @@
 {
   "name": "svelte-item-list",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Svelte item list",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",

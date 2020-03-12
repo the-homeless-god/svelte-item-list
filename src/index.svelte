@@ -101,7 +101,10 @@
         <img alt="icon" src={item[iconProp]} />
         <div class="item-description">
           <strong>{item[nameProp]}</strong>
-          <span>{item[descProp]}</span>
+
+          {#if item[descProp]}
+            <span>{item[descProp]}</span>
+          {/if}
         </div>
         <span class="item-score">{item[pointProp]}</span>
       </span>

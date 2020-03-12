@@ -1,5 +1,5 @@
 <script>
-  import ItemList from '../dist/index.js'
+  import ItemList from 'svelte-item-list'
 
   let items = []
 

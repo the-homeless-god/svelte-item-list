@@ -67,6 +67,7 @@ import ItemList from 'svelte-item-list'
 | `pageSize`    | 10            | Count of items at one page inside pagination              |
 | `sortFunc`    | point - point | Function to sort list of items                            |
 | `needIndex`   | true          | Enable or disable indexes at left of item                 |
+| `boldIndex`   | 5             | Count of items with bold name                             |
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list

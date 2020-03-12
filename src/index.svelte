@@ -14,6 +14,7 @@
   export let needIndex = true
   export let pageSize = 10
   export let currentPage = 1
+  export let boldIndex = 5
   export let sortFunc = (a, b) => {
     return a[pointProp] - b[pointProp]
   }
@@ -100,8 +101,11 @@
         {/if}
         <img alt="icon" src={item[iconProp]} />
         <div class="item-description">
-          <strong>{item[nameProp]}</strong>
-
+          {#if item.index <= boldIndex}
+            <strong>{item[nameProp]}</strong>
+          {:else}
+            <span>{item[nameProp]}</span>
+          {/if}
           {#if item[descProp]}
             <span>{item[descProp]}</span>
           {/if}

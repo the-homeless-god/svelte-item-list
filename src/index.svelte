@@ -89,27 +89,14 @@
     text-align: right;
     margin-right: 8px;
   }
-
-  .item-header {
-    width: 100%;
-    margin: 0px 10px 15px;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .item-header > * {
-    width: 100%;
-    margin: 0;
-  }
 </style>
 
 <div class="item-container">
   {#if items.length === 0}
     <slot name="loading" />
   {:else}
-    <span class="item-header">
-      <slot name="header" />
-    </span>
+    <slot name="header" />
+
     {#each paginatedItems as item}
       <span class:light={item[light]} class="item-text">
         {#if needIndex}

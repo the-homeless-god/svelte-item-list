@@ -1,7 +1,7 @@
 {
   "name": "svelte-item-list",
-  "version": "2.2.1",
-  "description": "Svelte item list",
+  "version": "2.2.2",
+  "description": "Svelte item list with pagination",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",
   "main": "dist/index.js",

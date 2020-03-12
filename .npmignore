@@ -3,3 +3,6 @@ src
 tsconfig.json
 tslint.json
 .prettierrc
+.rpt2_cache
+assets
+node_modules

@@ -17,7 +17,8 @@
     "autobuild": "rollup -c -w",
     "dev": "run-p start:dev autobuild",
     "start": "sirv public",
-    "start:dev": "sirv public --dev"
+    "start:dev": "sirv public --dev",
+    "fontello": "fontello-cli install --config ./fontello.config.json --css ./public/assets/css --font ./public/assets/font"
   },
   "dependencies": {
     "svelte-item-list": "^1.0.1"

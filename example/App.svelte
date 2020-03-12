@@ -1,10 +1,19 @@
 <script>
-  import ItemList from 'svelte-item-list'
+  import ItemList from '../dist/index.js'
+
+  let items = []
+
+  for (let i = 0; i < 100; i++) {
+    items.push({
+      name: 'Item name',
+      icon: '/favicon.png',
+      description: 'some dec',
+      point: i,
+      light: false
+    })
+  }
 </script>
 
-<ItemList
-  endpoint={async () => {
-    return [{ name: 'Item name', icon: '/favicon.png', description: 'some dec', point: 10 }]
-  }}>
+<ItemList needPag={false} endpoint={async () => items}>
   <div slot="loading">...loading</div>
 </ItemList>

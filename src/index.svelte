@@ -12,6 +12,7 @@
   export let light = 'light'
   export let needPag = true
   export let needIndex = true
+  export let needPoint = true
   export let pageSize = 10
   export let currentPage = 1
   export let boldIndex = 5
@@ -103,15 +104,17 @@
         <img alt="icon" src={item[iconProp]} />
         <div class="item-description">
           {#if item.index <= boldIndex}
-            <strong>{item[nameProp]}</strong>
+            <strong class="item-name-text">{item[nameProp]}</strong>
           {:else}
-            <span>{item[nameProp]}</span>
+            <span class="item-name-text">{item[nameProp]}</span>
           {/if}
           {#if item[descProp]}
-            <span>{item[descProp]}</span>
+            <span class="item-description-text">{item[descProp]}</span>
           {/if}
         </div>
-        <span class="item-score">{item[pointProp]}</span>
+        {#if needPoint}
+          <span class="item-score">{item[pointProp]}</span>
+        {/if}
       </span>
     {/each}
 

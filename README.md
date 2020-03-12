@@ -68,6 +68,7 @@ import ItemList from 'svelte-item-list'
 | `sortFunc`    | point - point | Function to sort list of items                            |
 | `needIndex`   | true          | Enable or disable indexes at left of item                 |
 | `boldIndex`   | 5             | Count of items with bold name                             |
+| `needPoint`   | true          | Show point field                                          |
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list

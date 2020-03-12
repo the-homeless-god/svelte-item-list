@@ -1,6 +1,6 @@
 {
   "name": "svelte-item-list",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Svelte item list",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",
@@ -15,10 +15,14 @@
   "license": "MIT",
   "repository": "Zimtir/svelte-item-list",
   "devDependencies": {
+    "@pyoner/svelte-ts-preprocess": "^1.2.1",
+    "@pyoner/svelte-types": "^3.4.4-2",
     "rollup": "^1.27.5",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte": "^5.1.1",
-    "svelte": "^3.15.0"
+    "rollup-plugin-typescript2": "^0.21.0",
+    "svelte": "^3.15.0",
+    "typescript": "^3.4.5"
   },
   "scripts": {
     "build": "rollup -c",

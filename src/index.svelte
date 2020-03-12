@@ -93,7 +93,7 @@
 </style>
 
 <div class="item-container">
-  {#if items.length === 0}
+  {#if $items.length === 0}
     <slot name="loading" />
   {:else}
     <slot name="header" />

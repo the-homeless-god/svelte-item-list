@@ -1,6 +1,6 @@
 {
   "name": "svelte-item-list",
-  "version": "2.3.7",
+  "version": "2.3.8",
   "description": "Svelte item list with pagination",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",
@@ -10,7 +10,12 @@
     "svelte",
     "item-list",
     "svelte-list",
-    "svelte-item-list"
+    "svelte-item-list",
+    "svelte",
+    "svelte-npm",
+    "typescript",
+    "svelte-pagination",
+    "pagination"
   ],
   "license": "MIT",
   "repository": "Zimtir/svelte-item-list",

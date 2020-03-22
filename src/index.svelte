@@ -13,6 +13,7 @@
   export let needPag = true
   export let needIndex = true
   export let needPoint = true
+  export let needIcon = true
   export let pageSize = 10
   export let currentPage = 1
   export let boldIndex = 5
@@ -103,7 +104,9 @@
         {#if needIndex}
           <span class="item-index">{item.index}</span>
         {/if}
-        <img alt="icon" src={item[iconProp]} />
+        {#if needIcon}
+          <img alt="icon" src={item[iconProp]} />
+        {/if}
         <div class="item-description">
           {#if item.index <= boldIndex}
             <strong class="item-name-text">{item[nameProp]}</strong>

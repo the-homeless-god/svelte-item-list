@@ -5,7 +5,7 @@ import { preprocess, createEnv, readConfigFile } from '@pyoner/svelte-ts-preproc
 
 import pkg from './package.json'
 
-const input = 'dist/index.js'
+const input = 'src/index.svelte'
 
 const env = createEnv()
 const compilerOptions = readConfigFile(env)

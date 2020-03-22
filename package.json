@@ -1,6 +1,6 @@
 {
   "name": "svelte-item-list",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Svelte item list with pagination",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",
@@ -32,5 +32,8 @@
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "timeago.js": "^4.0.2"
   }
 }

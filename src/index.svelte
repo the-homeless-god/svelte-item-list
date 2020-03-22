@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import Pagination from './components/Pagination.svelte'
   import { initItems, items } from './tools/store'
+  import * as timeago from 'timeago.js'
   import { paginate } from './tools/navigation.tool'
 
   export let endpoint
@@ -14,6 +15,7 @@
   export let needIndex = true
   export let needPoint = true
   export let needIcon = true
+  export let needTimeago = false
   export let pageSize = 10
   export let currentPage = 1
   export let boldIndex = 5
@@ -118,7 +120,11 @@
           {/if}
         </div>
         {#if needPoint}
-          <span class="item-score">{item[pointProp]}</span>
+          <span class="item-score">
+            {#if needTimeago}
+              <time datetime={item[pointProp]}>{timeago.format(item[pointProp])}</time>
+            {:else}{item[pointProp]}{/if}
+          </span>
         {/if}
       </span>
     {/each}

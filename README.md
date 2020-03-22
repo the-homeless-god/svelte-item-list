@@ -71,6 +71,8 @@ import ItemList from 'svelte-item-list'
 | `sortFunc`    | point - point | Function to sort list of items                            |
 | `clickFunc`   | return        | Function to catch the click at item                       |
 | `needIcon`    | true          | Show icon field                                           |
+| `needTimeago` | false         | Enable or disable format point field through timeago      |
+
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list

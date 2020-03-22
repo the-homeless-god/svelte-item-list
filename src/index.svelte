@@ -16,6 +16,7 @@
   export let needPoint = true
   export let needIcon = true
   export let needTimeago = false
+  export let isVisible = true
   export let pageSize = 10
   export let currentPage = 1
   export let boldIndex = 5
@@ -95,48 +96,50 @@
   }
 </style>
 
-<div class="item-container">
-  {#if $items.length === 0}
-    <slot name="loading" />
-  {:else}
-    <slot name="header" />
+{#if isVisible}
+  <div class="item-container">
+    {#if $items.length === 0}
+      <slot name="loading" />
+    {:else}
+      <slot name="header" />
 
-    {#each paginatedItems as item}
-      <span on:click={() => clickFunc(item)} class:light={item[light]} class="item-text">
-        {#if needIndex}
-          <span class="item-index">{item.index}</span>
-        {/if}
-        {#if needIcon}
-          <img alt="icon" src={item[iconProp]} />
-        {/if}
-        <div class="item-description">
-          {#if item.index <= boldIndex}
-            <strong class="item-name-text">{item[nameProp]}</strong>
-          {:else}
-            <span class="item-name-text">{item[nameProp]}</span>
+      {#each paginatedItems as item}
+        <span on:click={() => clickFunc(item)} class:light={item[light]} class="item-text">
+          {#if needIndex}
+            <span class="item-index">{item.index}</span>
           {/if}
-          {#if item[descProp]}
-            <span class="item-description-text">{item[descProp]}</span>
+          {#if needIcon}
+            <img alt="icon" src={item[iconProp]} />
           {/if}
-        </div>
-        {#if needPoint}
-          <span class="item-score">
-            {#if needTimeago}
-              <time datetime={item[pointProp]}>{timeago.format(item[pointProp])}</time>
-            {:else}{item[pointProp]}{/if}
-          </span>
-        {/if}
-      </span>
-    {/each}
+          <div class="item-description">
+            {#if item.index <= boldIndex}
+              <strong class="item-name-text">{item[nameProp]}</strong>
+            {:else}
+              <span class="item-name-text">{item[nameProp]}</span>
+            {/if}
+            {#if item[descProp]}
+              <span class="item-description-text">{item[descProp]}</span>
+            {/if}
+          </div>
+          {#if needPoint}
+            <span class="item-score">
+              {#if needTimeago}
+                <time datetime={item[pointProp]}>{timeago.format(item[pointProp])}</time>
+              {:else}{item[pointProp]}{/if}
+            </span>
+          {/if}
+        </span>
+      {/each}
 
-    {#if needPag}
-      <Pagination
-        totalItems={$items.length}
-        {pageSize}
-        {currentPage}
-        limit={null}
-        showStepOptions={true}
-        on:setPage={e => (currentPage = e.detail.page)} />
+      {#if needPag}
+        <Pagination
+          totalItems={$items.length}
+          {pageSize}
+          {currentPage}
+          limit={null}
+          showStepOptions={true}
+          on:setPage={e => (currentPage = e.detail.page)} />
+      {/if}
     {/if}
-  {/if}
-</div>
+  </div>
+{/if}

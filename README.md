@@ -72,6 +72,7 @@ import ItemList from 'svelte-item-list'
 | `clickFunc`   | return        | Function to catch the click at item                       |
 | `needIcon`    | true          | Show icon field                                           |
 | `needTimeago` | false         | Enable or disable format point field through timeago      |
+| `isVisible`   | true          | Enable or disable visibility of tool                      |
 
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg

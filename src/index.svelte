@@ -29,7 +29,15 @@
 
   let paginatedItems = []
 
+  $: if (isVisible) {
+    render()
+  }
+
   $: if ($items.length > 0) {
+    render()
+  }
+
+  const render = () => {
     let items = $items.map((item, index) => {
       item.index = ++index
       return item

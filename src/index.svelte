@@ -53,7 +53,8 @@
   onMount(() => {
     if (endpointIsStore) {
       endpoint.subscribe(e => {
-        items.update(i => e.sort(sortFunc))
+        e.sort(sortFunc)
+        items.update(i => e)
       })
     } else {
       initItems(endpoint, sortFunc)

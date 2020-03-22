@@ -54,26 +54,26 @@ import ItemList from 'svelte-item-list'
 
 ###### Properties
 
-| Property      | Default Value | Description                                               |
-| :------------ | :------------ | :-------------------------------------------------------- |
-| `endpoint`    | undefined     | The endpoint function with return of values               |
-| `nameProp`    | `name`        | The key of name property in the object by endpoint.       |
-| `descProp`    | `description` | The key of description property in the object by endpoint |
-| `pointProp`   | `point`       | The key of point property in the object by endpoint.      |
-| `iconProp`    | `icon`        | The key of icon property in the object by endpoint.       |
-| `lightProp`   | `light`       | The key of light property in the object by endpoint.      |
-| `needPag`     | true          | Enable pagination under list of items or no               |
-| `currentPage` | 1             | Number of selected page by default at pagination          |
-| `pageSize`    | 10            | Count of items at one page inside pagination              |
-| `needIndex`   | true          | Enable or disable indexes at left of item                 |
-| `boldIndex`   | 5             | Count of items with bold name                             |
-| `needPoint`   | true          | Show point field                                          |
-| `sortFunc`    | point - point | Function to sort list of items                            |
-| `clickFunc`   | return        | Function to catch the click at item                       |
-| `needIcon`    | true          | Show icon field                                           |
-| `needTimeago` | false         | Enable or disable format point field through timeago      |
-| `isVisible`   | true          | Enable or disable visibility of tool                      |
-
+| Property          | Default Value | Description                                               |
+| :---------------- | :------------ | :-------------------------------------------------------- |
+| `endpoint`        | undefined     | The endpoint function with return of values               |
+| `nameProp`        | `name`        | The key of name property in the object by endpoint.       |
+| `descProp`        | `description` | The key of description property in the object by endpoint |
+| `pointProp`       | `point`       | The key of point property in the object by endpoint.      |
+| `iconProp`        | `icon`        | The key of icon property in the object by endpoint.       |
+| `lightProp`       | `light`       | The key of light property in the object by endpoint.      |
+| `needPag`         | true          | Enable pagination under list of items or no               |
+| `currentPage`     | 1             | Number of selected page by default at pagination          |
+| `pageSize`        | 10            | Count of items at one page inside pagination              |
+| `needIndex`       | true          | Enable or disable indexes at left of item                 |
+| `boldIndex`       | 5             | Count of items with bold name                             |
+| `needPoint`       | true          | Show point field                                          |
+| `sortFunc`        | point - point | Function to sort list of items                            |
+| `clickFunc`       | return        | Function to catch the click at item                       |
+| `needIcon`        | true          | Show icon field                                           |
+| `needTimeago`     | false         | Enable or disable format point field through timeago      |
+| `isVisible`       | true          | Enable or disable visibility of tool                      |
+| `endpointIsStore` | false         | Subscribe to endpoint when it provided as store           |
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list

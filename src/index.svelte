@@ -5,6 +5,7 @@
   import * as timeago from 'timeago.js'
   import { paginate } from './tools/navigation.tool'
 
+  export let endpointIsStore = false
   export let endpoint
   export let nameProp = 'name'
   export let descProp = 'description'
@@ -49,7 +50,15 @@
     }
   }
 
-  onMount(() => initItems(endpoint, sortFunc))
+  onMount(() => {
+    if (endpointIsStore) {
+      endpoint.subscribe(e => {
+        items.update(i => e)
+      })
+    } else {
+      initItems(endpoint, sortFunc)
+    }
+  })
 </script>
 
 <style>

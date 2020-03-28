@@ -1,5 +1,8 @@
 <script>
   import ItemList from '../dist/index.js'
+  import { writable } from 'svelte/store'
+
+  const store = writable([])
 
   let items = []
 
@@ -12,8 +15,16 @@
       light: false
     })
   }
+
+  store.set(items)
 </script>
 
+<!-- with store method-->
+<ItemList needPag={true} endpointIsStore={true} endpoint={store}>
+  <div slot="loading">...loading</div>
+</ItemList>
+
+<!-- with promise method-->
 <ItemList needPag={true} endpoint={async () => items}>
   <div slot="loading">...loading</div>
 </ItemList>

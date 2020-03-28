@@ -1,11 +1,14 @@
 {
-  "name": "svelte-item-list",
-  "version": "2.5.1",
+  "name": "@zimtir/svelte-item-list",
+  "version": "2.5.2",
   "description": "Svelte item list with pagination",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "author": "Marat Zimnurov",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Zimtir"
+  },
   "keywords": [
     "svelte",
     "item-list",
@@ -18,7 +21,11 @@
     "pagination"
   ],
   "license": "MIT",
-  "repository": "Zimtir/svelte-item-list",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zimtir/svelte-item-list.git"
+  },
+  "homepage": "https://github.com/Zimtir/svelte-item-list",
   "devDependencies": {
     "@pyoner/svelte-ts-preprocess": "^1.2.1",
     "@pyoner/svelte-types": "^3.4.4-2",

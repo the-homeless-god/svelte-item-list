@@ -30,13 +30,9 @@
 
   let paginatedItems = []
 
-  $: if (isVisible) {
+  items.subscribe(value => {
     render()
-  }
-
-  $: if ($items.length > 0) {
-    render()
-  }
+  })
 
   const render = () => {
     let items = $items.map((item, index) => {
@@ -50,16 +46,19 @@
     }
   }
 
-  onMount(() => {
+  const init = async () => {
     if (endpointIsStore) {
       endpoint.subscribe(e => {
         e.sort(sortFunc)
         items.update(i => e)
       })
     } else {
-      initItems(endpoint, sortFunc)
+      await initItems(endpoint, sortFunc)
     }
-  })
+    render()
+  }
+
+  onMount(init)
 </script>
 
 <style>

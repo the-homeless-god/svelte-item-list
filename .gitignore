@@ -4,3 +4,4 @@ package-lock.json
 example/public/bundle.*
 dist
 .rpt2_cache
+.DS_Store

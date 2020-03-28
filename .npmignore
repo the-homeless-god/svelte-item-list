@@ -6,3 +6,5 @@ tslint.json
 .rpt2_cache
 assets
 node_modules
+.npmrc
+.DS_Store

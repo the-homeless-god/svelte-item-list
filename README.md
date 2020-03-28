@@ -1,4 +1,6 @@
 [![npm][npm]][npm-url]
+[![Github Downloads (total)](https://img.shields.io/github/downloads/Zimtir/svelte-item-list/total.svg)]()
+[![Github Downloads (latest)](https://img.shields.io/github/downloads/Zimtir/svelte-item-list/latest/total.svg)]()
 
 Svelte. Item list.
 

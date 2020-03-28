@@ -1,6 +1,11 @@
 [![npm][npm]][npm-url]
+[![Github forks](https://img.shields.io/github/forks/Zimtir/svelte-item-list)]()
+[![Github stars](https://img.shields.io/github/stars/Zimtir/svelte-item-list)]()
 [![Github Downloads (total)](https://img.shields.io/github/downloads/Zimtir/svelte-item-list/total.svg)]()
-[![Github Downloads (latest)](https://img.shields.io/github/downloads/Zimtir/svelte-item-list/latest/total.svg)]()
+[![GitHub Downloads (montly)](https://img.shields.io/github/downloads/Zimtir/svelte-item-list/latest/total.svg)]()
+[![Github Issues](https://img.shields.io/github/issues/Zimtir/svelte-item-list)]()
+[![Github license](https://img.shields.io/github/license/Zimtir/svelte-item-list)]()
+[![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FZimtir%2Fsvelte-item-list)]()
 
 Svelte. Item list.
 

@@ -1,31 +1,18 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
-  import { generateNavigationOptions } from '../tools/navigation.tool'
   import SymbolEnum from '../enums/symbol.enum'
-
-  const dispatch = createEventDispatcher()
+  import { currentPage } from '../tools/store'
 
   export let totalItems = 0
   export let pageSize = 1
-  export let currentPage = 1
   export let limit = null
   export let showStepOptions = false
 
-  $: options = generateNavigationOptions({
-    totalItems,
-    pageSize,
-    currentPage,
-    limit,
-    showStepOptions
-  })
-  $: totalPages = Math.ceil(totalItems / pageSize)
-
   const handleOptionClick = option => {
-    dispatch('setPage', { page: option.value })
+    setPage(option.value)
   }
 
-  export const setPage = page => {
-    currentPage = page
+  const setPage = page => {
+    currentPage.update(n => page)
   }
 
   const isCapabilitiedArrow = option => {
@@ -34,17 +21,17 @@
     if (option.type === 'symbol') {
       switch (option.symbol) {
         case SymbolEnum.PREVIOUS_PAGE:
-          output = currentPage !== 1
+          output = $currentPage !== 1
           break
         case SymbolEnum.NEXT_PAGE:
-          output = currentPage !== totalPages
+          output = $currentPage !== totalPages
           break
 
         case SymbolEnum.START_PAGE:
-          output = currentPage > 3
+          output = $currentPage > 3
           break
         case SymbolEnum.END_PAGE:
-          output = currentPage < totalPages - 2
+          output = $currentPage < totalPages - 2
           break
       }
     }
@@ -61,6 +48,55 @@
     }
     return output
   }
+
+  const generateNavigationOptions = ({
+    totalItems,
+    pageSize,
+    currentPage,
+    showStepOptions = false
+  }) => {
+    const totalPages = Math.ceil(totalItems / pageSize)
+    let options = new Array(totalPages).fill(null).map((value, index) => ({
+      type: 'number',
+      value: index + 1
+    }))
+    return showStepOptions ? addStepOptions({ options, totalPages }) : options
+  }
+
+  const addStepOptions = ({ options, totalPages }) => {
+    return [
+      {
+        type: 'symbol',
+        symbol: SymbolEnum.START_PAGE,
+        value: 1
+      },
+      {
+        type: 'symbol',
+        symbol: SymbolEnum.PREVIOUS_PAGE,
+        value: $currentPage <= 1 ? 1 : $currentPage - 1
+      },
+      ...options,
+      {
+        type: 'symbol',
+        symbol: SymbolEnum.NEXT_PAGE,
+        value: $currentPage >= totalPages ? totalPages : $currentPage + 1
+      },
+      {
+        type: 'symbol',
+        symbol: SymbolEnum.END_PAGE,
+        value: totalPages
+      }
+    ]
+  }
+
+  $: options = generateNavigationOptions({
+    totalItems,
+    pageSize,
+    $currentPage,
+    limit,
+    showStepOptions
+  })
+  $: totalPages = Math.ceil(totalItems / pageSize)
 </script>
 
 <style>
@@ -107,34 +143,22 @@
         class:number={option.type === 'number'}
         class:prev={option.type === 'symbol' && option.symbol === SymbolEnum.PREVIOUS_PAGE}
         class:next={option.type === 'symbol' && option.symbol === SymbolEnum.NEXT_PAGE}
-        class:inactive={(option.type === 'symbol' && option.symbol === SymbolEnum.NEXT_PAGE && currentPage >= totalPages) || (option.type === 'symbol' && option.symbol === SymbolEnum.PREVIOUS_PAGE && currentPage <= 1)}
+        class:inactive={(option.type === 'symbol' && option.symbol === SymbolEnum.NEXT_PAGE && $currentPage >= totalPages) || (option.type === 'symbol' && option.symbol === SymbolEnum.PREVIOUS_PAGE && $currentPage <= 1)}
         class:ellipsis={option.type === 'symbol' && option.symbol === SymbolEnum.ELLIPSIS}
-        class:current={option.type === 'number' && option.value === currentPage}
+        class:current={option.type === 'number' && option.value === $currentPage}
         on:click={() => handleOptionClick(option)}>
         {#if option.type === 'number'}
-          <slot name="number" value={option.value}>
-            <span>{option.value}</span>
-          </slot>
+          <span>{option.value}</span>
         {:else if option.type === 'symbol' && option.symbol === SymbolEnum.ELLIPSIS}
-          <slot name="ellipsis">
-            <span>...</span>
-          </slot>
-        {:else if option.type === 'symbol' && option.symbol === SymbolEnum.START_PAGE && currentPage !== 1}
-          <slot name="end">
-            <span class="icon-angle-double-left" />
-          </slot>
-        {:else if option.type === 'symbol' && option.symbol === SymbolEnum.PREVIOUS_PAGE && currentPage !== 1}
-          <slot name="prev">
-            <span class="icon-angle-left" />
-          </slot>
-        {:else if option.type === 'symbol' && option.symbol === SymbolEnum.NEXT_PAGE && currentPage !== totalPages}
-          <slot name="next">
-            <span class="icon-angle-right" />
-          </slot>
-        {:else if option.type === 'symbol' && option.symbol === SymbolEnum.END_PAGE && currentPage !== totalPages}
-          <slot name="end">
-            <span class="icon-angle-double-right" />
-          </slot>
+          <span>...</span>
+        {:else if option.type === 'symbol' && option.symbol === SymbolEnum.START_PAGE && $currentPage !== 1}
+          <span class="icon-angle-double-left" />
+        {:else if option.type === 'symbol' && option.symbol === SymbolEnum.PREVIOUS_PAGE && $currentPage !== 1}
+          <span class="icon-angle-left" />
+        {:else if option.type === 'symbol' && option.symbol === SymbolEnum.NEXT_PAGE && $currentPage !== totalPages}
+          <span class="icon-angle-right" />
+        {:else if option.type === 'symbol' && option.symbol === SymbolEnum.END_PAGE && $currentPage !== totalPages}
+          <span class="icon-angle-double-right" />
         {/if}
       </span>
     {/if}

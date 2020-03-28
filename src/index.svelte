@@ -1,26 +1,28 @@
 <script>
   import { onMount } from 'svelte'
   import Pagination from './components/Pagination.svelte'
-  import { initItems, items } from './tools/store'
-  import { paginate } from './tools/navigation.tool'
+  import { initItems, items, paginatedItems, currentPage } from './tools/store'
   import Item from './components/Item.svelte'
 
-  export let endpointIsStore = false
   export let endpoint
-  export let nameProp = 'name'
-  export let descProp = 'description'
-  export let pointProp = 'point'
-  export let iconProp = 'icon'
-  export let light = 'light'
+
+  export let pageSize = 10
+  export let boldIndex = 5
+
+  export let isVisible = true
+  export let endpointIsStore = false
+
   export let needPag = true
   export let needIndex = true
   export let needPoint = true
   export let needIcon = true
   export let needTimeago = false
-  export let isVisible = true
-  export let pageSize = 10
-  export let currentPage = 1
-  export let boldIndex = 5
+
+  export let nameProp = 'name'
+  export let descProp = 'description'
+  export let pointProp = 'point'
+  export let iconProp = 'icon'
+  export let light = 'light'
 
   export let clickFunc = item => {}
 
@@ -28,34 +30,23 @@
     return a[pointProp] - b[pointProp]
   }
 
-  let paginatedItems = []
-
-  const render = () => {
-    let items = $items.map((item, index) => {
-      item.index = ++index
-      return item
-    })
-    if (needPag) {
-      paginatedItems = paginate({ items, pageSize, currentPage })
-    } else {
-      paginatedItems = items
-    }
-  }
-
   const init = async () => {
-    items.subscribe(value => {
-      render()
+    currentPage.subscribe(value => {
+      paginatedItems.set(
+        $items.slice((value - 1) * pageSize, (value - 1) * pageSize + pageSize)
+      )
     })
 
-    if (endpointIsStore) {
-      endpoint.subscribe(e => {
-        e.sort(sortFunc)
-        items.update(i => e)
-      })
-    } else {
-      await initItems(endpoint, sortFunc)
-    }
-    render()
+    items.subscribe(value => {
+      paginatedItems.set(
+        value.slice(
+          ($currentPage - 1) * pageSize,
+          ($currentPage - 1) * pageSize + pageSize
+        )
+      )
+    })
+
+    await initItems(endpoint, sortFunc, needIndex, endpointIsStore)
   }
 
   onMount(init)
@@ -93,8 +84,11 @@
     {:else}
       <slot name="header" />
 
-      {#each paginatedItems as item}
-        <span on:click={() => clickFunc(item)} class:light={item[light]} class="item-text">
+      {#each $paginatedItems as item}
+        <span
+          on:click={() => clickFunc(item)}
+          class:light={item[light]}
+          class="item-text">
 
           <Item
             {needIcon}
@@ -115,10 +109,8 @@
         <Pagination
           totalItems={$items.length}
           {pageSize}
-          {currentPage}
           limit={null}
-          showStepOptions={true}
-          on:setPage={e => (currentPage = e.detail.page)} />
+          showStepOptions={true} />
       {/if}
     {/if}
   </div>

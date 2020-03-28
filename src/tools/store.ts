@@ -1,17 +1,44 @@
 import { writable } from 'svelte/store'
 
 export const items = writable([])
+export const paginatedItems = writable([])
+export const currentPage = writable(1)
 
-export const initItems = async (endpoint: Function, sortFunc: Function = null, isUpdate: boolean = false) => {
-  let result = await endpoint()
-  if (result) {
-    if (sortFunc) {
-      result.sort(sortFunc)
-    }
+export const initItems = async (
+  endpoint: any,
+  sortFunc: Function = null,
+  needIndex: boolean = false,
+  endpointIsStore: boolean = false
+) => {
+  if (endpointIsStore) {
+    endpoint.subscribe(e => {
+      e.sort(sortFunc)
 
-    if (isUpdate) {
-      items.update(result)
-    } else {
+      items.set(e)
+
+      if (needIndex) {
+        items.update(item =>
+          item.map((item, index) => {
+            item.index = ++index
+            return item
+          })
+        )
+      }
+    })
+  } else {
+    let result = await endpoint()
+    if (result) {
+      if (sortFunc) {
+        result.sort(sortFunc)
+      }
+
+      if (needIndex) {
+        result.forEach((item, index) => {
+          item.index = ++index
+          return item
+        })
+      }
+
       items.set(result)
     }
   }

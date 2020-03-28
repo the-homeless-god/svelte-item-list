@@ -1,5 +1,5 @@
 <script>
-  import ItemList from 'svelte-item-list'
+  import ItemList from '../dist/index.js'
 
   let items = []
 
@@ -14,6 +14,6 @@
   }
 </script>
 
-<ItemList needPag={false} endpoint={async () => items}>
+<ItemList needPag={true} endpoint={async () => items}>
   <div slot="loading">...loading</div>
 </ItemList>

@@ -2,8 +2,8 @@
   import { onMount } from 'svelte'
   import Pagination from './components/Pagination.svelte'
   import { initItems, items } from './tools/store'
-  import * as timeago from 'timeago.js'
   import { paginate } from './tools/navigation.tool'
+  import Item from './components/Item.svelte'
 
   export let endpointIsStore = false
   export let endpoint
@@ -30,10 +30,6 @@
 
   let paginatedItems = []
 
-  items.subscribe(value => {
-    render()
-  })
-
   const render = () => {
     let items = $items.map((item, index) => {
       item.index = ++index
@@ -47,6 +43,10 @@
   }
 
   const init = async () => {
+    items.subscribe(value => {
+      render()
+    })
+
     if (endpointIsStore) {
       endpoint.subscribe(e => {
         e.sort(sortFunc)
@@ -77,39 +77,12 @@
     align-items: center;
   }
 
-  .item-container .item-text img {
-    margin-left: 3px;
-    margin-right: 12px;
-    border-radius: 50%;
-    width: 50px;
-  }
-
-  .item-container .item-score {
-    margin-left: auto;
-    font-weight: 500;
-  }
-
   .item-container > span:nth-child(even) {
     background: rgb(248, 248, 248);
   }
 
-  .item-container .item-description {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .item-container .item-description strong {
-    width: 100%;
-  }
-
   .item-container .light {
     box-shadow: 0 0 3px 1px #ccc;
-  }
-
-  .item-index {
-    min-width: 32px;
-    text-align: right;
-    margin-right: 8px;
   }
 </style>
 
@@ -122,29 +95,19 @@
 
       {#each paginatedItems as item}
         <span on:click={() => clickFunc(item)} class:light={item[light]} class="item-text">
-          {#if needIndex}
-            <span class="item-index">{item.index}</span>
-          {/if}
-          {#if needIcon}
-            <img alt="icon" src={item[iconProp]} />
-          {/if}
-          <div class="item-description">
-            {#if item.index <= boldIndex}
-              <strong class="item-name-text">{item[nameProp]}</strong>
-            {:else}
-              <span class="item-name-text">{item[nameProp]}</span>
-            {/if}
-            {#if item[descProp]}
-              <span class="item-description-text">{item[descProp]}</span>
-            {/if}
-          </div>
-          {#if needPoint}
-            <span class="item-score">
-              {#if needTimeago}
-                <time datetime={item[pointProp]}>{timeago.format(item[pointProp])}</time>
-              {:else}{item[pointProp]}{/if}
-            </span>
-          {/if}
+
+          <Item
+            {needIcon}
+            {needIndex}
+            {needTimeago}
+            {needPoint}
+            index={item.index}
+            bold={item.index < boldIndex}
+            icon={item[iconProp]}
+            body={item[descProp]}
+            header={item[nameProp]}
+            sub={item[pointProp]} />
+
         </span>
       {/each}
 

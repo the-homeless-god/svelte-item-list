@@ -80,3 +80,8 @@ import ItemList from 'svelte-item-list'
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list
 [example-folder-url]: https://github.com/Zimtir/svelte-item-list/tree/master/example
+
+## Development to increment version of package:
+
+- increment version at package.json like 1.2.3
+- make commit like "Release 1.2.3"

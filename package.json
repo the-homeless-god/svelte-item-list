@@ -1,6 +1,6 @@
 {
   "name": "@zimtir/svelte-item-list",
-  "version": "2.5.4",
+  "version": "2.5.5",
   "description": "Svelte item list with pagination",
   "svelte": "src/index.svelte",
   "module": "dist/index.mjs",
@@ -42,7 +42,6 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "prepublishOnly": "npm run build",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json"
   },

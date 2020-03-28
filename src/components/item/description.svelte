@@ -1,9 +1,3 @@
-<script>
-  export let bold = false
-  export let header
-  export let body
-</script>
-
 <style>
   .item-description {
     display: flex;
@@ -14,6 +8,12 @@
     width: 100%;
   }
 </style>
+
+<script>
+  export let bold = false
+  export let header
+  export let body
+</script>
 
 <div class="item-description">
   {#if bold}

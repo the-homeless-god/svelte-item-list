@@ -1,3 +1,28 @@
+<style>
+  .item-container {
+    margin: 15px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .item-container .item-text {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .item-container > span:nth-child(even) {
+    background: rgb(248, 248, 248);
+  }
+
+  .item-container .light {
+    box-shadow: 0 0 3px 1px #ccc;
+  }
+</style>
+
 <script>
   import { onMount } from 'svelte'
   import Pagination from './components/Pagination.svelte'
@@ -52,31 +77,6 @@
   onMount(init)
 </script>
 
-<style>
-  .item-container {
-    margin: 15px;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .item-container .item-text {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 10px;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  .item-container > span:nth-child(even) {
-    background: rgb(248, 248, 248);
-  }
-
-  .item-container .light {
-    box-shadow: 0 0 3px 1px #ccc;
-  }
-</style>
-
 {#if isVisible}
   <div class="item-container">
     {#if $items.length === 0}
@@ -88,7 +88,8 @@
         <span
           on:click={() => clickFunc(item)}
           class:light={item[light]}
-          class="item-text">
+          class="item-text"
+        >
 
           <Item
             {needIcon}
@@ -100,7 +101,8 @@
             icon={item[iconProp]}
             body={item[descProp]}
             header={item[nameProp]}
-            sub={item[pointProp]} />
+            sub={item[pointProp]}
+          />
 
         </span>
       {/each}
@@ -110,7 +112,8 @@
           totalItems={$items.length}
           {pageSize}
           limit={null}
-          showStepOptions={true} />
+          showStepOptions={true}
+        />
       {/if}
     {/if}
   </div>

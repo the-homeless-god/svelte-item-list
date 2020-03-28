@@ -1,3 +1,10 @@
+<style>
+  .item-score {
+    margin-left: auto;
+    font-weight: 500;
+  }
+</style>
+
 <script>
   export let value
   export let visible = false
@@ -5,13 +12,6 @@
 
   import * as timeago from 'timeago.js'
 </script>
-
-<style>
-  .item-score {
-    margin-left: auto;
-    font-weight: 500;
-  }
-</style>
 
 {#if visible}
   <span class="item-score">

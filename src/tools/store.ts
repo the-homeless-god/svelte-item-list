@@ -11,13 +11,13 @@ export const initItems = async (
   endpointIsStore: boolean = false
 ) => {
   if (endpointIsStore) {
-    endpoint.subscribe(e => {
+    endpoint.subscribe((e) => {
       e.sort(sortFunc)
 
       items.set(e)
 
       if (needIndex) {
-        items.update(item =>
+        items.update((item) =>
           item.map((item, index) => {
             item.index = ++index
             return item

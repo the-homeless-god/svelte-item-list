@@ -1,3 +1,39 @@
+<style>
+  .pagination {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: #fff;
+    margin-top: 20px;
+  }
+
+  .pagination > * {
+    font-size: 18px;
+  }
+
+  .pagination :global(.option) {
+    padding: 5px 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s all ease-out;
+    user-select: none;
+    color: black;
+    background-color: #fff;
+    border-radius: 4px;
+    margin: 5px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+
+  .pagination :global(.option:hover) {
+    transform: scale(1.1);
+  }
+  .pagination :global(.option.current) {
+    color: #747474;
+  }
+</style>
+
 <script>
   import SymbolEnum from '../enums/symbol.enum'
   import { currentPage } from '../tools/store'
@@ -99,42 +135,6 @@
   $: totalPages = Math.ceil(totalItems / pageSize)
 </script>
 
-<style>
-  .pagination {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    background: #fff;
-    margin-top: 20px;
-  }
-
-  .pagination > * {
-    font-size: 18px;
-  }
-
-  .pagination :global(.option) {
-    padding: 5px 13px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s all ease-out;
-    user-select: none;
-    color: black;
-    background-color: #fff;
-    border-radius: 4px;
-    margin: 5px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-  }
-
-  .pagination :global(.option:hover) {
-    transform: scale(1.1);
-  }
-  .pagination :global(.option.current) {
-    color: #747474;
-  }
-</style>
-
 <div class="pagination">
   {#each options as option}
     {#if isCapabilitiedArrow(option)}
@@ -146,7 +146,8 @@
         class:inactive={(option.type === 'symbol' && option.symbol === SymbolEnum.NEXT_PAGE && $currentPage >= totalPages) || (option.type === 'symbol' && option.symbol === SymbolEnum.PREVIOUS_PAGE && $currentPage <= 1)}
         class:ellipsis={option.type === 'symbol' && option.symbol === SymbolEnum.ELLIPSIS}
         class:current={option.type === 'number' && option.value === $currentPage}
-        on:click={() => handleOptionClick(option)}>
+        on:click={() => handleOptionClick(option)}
+      >
         {#if option.type === 'number'}
           <span>{option.value}</span>
         {:else if option.type === 'symbol' && option.symbol === SymbolEnum.ELLIPSIS}

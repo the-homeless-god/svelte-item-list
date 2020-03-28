@@ -1,8 +1,3 @@
-<script>
-  export let src
-  export let visible = false
-</script>
-
 <style>
   .item-icon {
     margin-left: 3px;
@@ -11,6 +6,11 @@
     width: 50px;
   }
 </style>
+
+<script>
+  export let src
+  export let visible = false
+</script>
 
 {#if visible}
 

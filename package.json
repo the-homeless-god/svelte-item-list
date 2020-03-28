@@ -23,6 +23,7 @@
     "@pyoner/svelte-ts-preprocess": "^1.2.1",
     "@pyoner/svelte-types": "^3.4.4-2",
     "prettier": "^2.0.2",
+    "prettier-plugin-svelte": "^0.7.0",
     "rollup": "^1.27.5",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte": "^5.1.1",
@@ -35,7 +36,7 @@
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json"
   },
   "dependencies": {

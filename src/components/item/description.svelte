@@ -13,7 +13,7 @@
   export let bold = false
   export let header
   export let body
-  export let descIsHTML
+  export let descIsHTML = true
 </script>
 
 <div class="item-description">

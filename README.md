@@ -81,6 +81,7 @@ import ItemList from 'svelte-item-list'
 | `needTimeago`     | false         | Enable or disable format point field through timeago      |
 | `isVisible`       | true          | Enable or disable visibility of tool                      |
 | `endpointIsStore` | false         | Subscribe to endpoint when it provided as store           |
+| `descIsHTML`      | false         | Make a description to html view                           |
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list

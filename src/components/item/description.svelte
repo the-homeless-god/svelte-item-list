@@ -13,6 +13,7 @@
   export let bold = false
   export let header
   export let body
+  export let descIsHTML = false
 </script>
 
 <div class="item-description">
@@ -22,6 +23,12 @@
     <span class="item-name-text">{header}</span>
   {/if}
   {#if body}
-    <span class="item-description-text">{body}</span>
+    {#if descIsHTML}
+      <span class="item-description-text">
+        {@html body}
+      </span>
+    {:else}
+      <span class="item-description-text">{body}</span>
+    {/if}
   {/if}
 </div>

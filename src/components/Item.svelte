@@ -15,9 +15,11 @@
   export let body
   export let header
   export let sub
+
+  export let descIsHTML
 </script>
 
 <Index visible={needIndex} {index} />
 <Icon visible={needIcon} src={icon} />
-<Description {bold} {header} {body} />
+<Description {descIsHTML} {bold} {header} {body} />
 <Sub visible={needPoint} value={sub} {needTimeago} />

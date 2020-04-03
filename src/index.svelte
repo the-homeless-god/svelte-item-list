@@ -31,9 +31,10 @@
 
   export let endpoint
 
-  export let pageSize = 10
+  export let pageSize = 3
   export let boldIndex = 5
 
+  export let limit = 1
   export let isVisible = true
   export let endpointIsStore = false
 
@@ -111,7 +112,7 @@
         <Pagination
           totalItems={$items.length}
           {pageSize}
-          limit={null}
+          {limit}
           showStepOptions={true}
         />
       {/if}

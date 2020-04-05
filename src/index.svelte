@@ -110,7 +110,7 @@
           </span>
         {/each}
       {:else}
-        <slot name="body" />
+        <slot items={$paginatedItems} name="body" />
       {/if}
 
       {#if needPag}

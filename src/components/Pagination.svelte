@@ -3,8 +3,6 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background: #fff;
-    margin-top: 20px;
   }
 
   .pagination > * {

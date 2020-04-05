@@ -83,6 +83,7 @@ import ItemList from 'svelte-item-list'
 | `endpointIsStore` | false         | Subscribe to endpoint when it provided as store           |
 | `descIsHTML`      | false         | Make a description to html view                           |
 | `limit`           | 1             | Make limited options for the numbers                      |
+| `needBody`        | true          | Need display list by default view or use slot             |
 
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg

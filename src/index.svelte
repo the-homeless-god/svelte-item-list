@@ -43,6 +43,7 @@
   export let needPoint = true
   export let needIcon = true
   export let needTimeago = false
+  export let needBody = true
 
   export let nameProp = 'name'
   export let descProp = 'description'
@@ -85,28 +86,32 @@
     {:else}
       <slot name="header" />
 
-      {#each $paginatedItems as item}
-        <span
-          on:click={() => clickFunc(item)}
-          class:light={item[light]}
-          class="item-text"
-        >
+      {#if needBody}
+        {#each $paginatedItems as item}
+          <span
+            on:click={() => clickFunc(item)}
+            class:light={item[light]}
+            class="item-text"
+          >
 
-          <Item
-            {needIcon}
-            {needIndex}
-            {needTimeago}
-            {needPoint}
-            index={item.index}
-            bold={item.index < boldIndex}
-            icon={item[iconProp]}
-            body={item[descProp]}
-            header={item[nameProp]}
-            sub={item[pointProp]}
-          />
+            <Item
+              {needIcon}
+              {needIndex}
+              {needTimeago}
+              {needPoint}
+              index={item.index}
+              bold={item.index < boldIndex}
+              icon={item[iconProp]}
+              body={item[descProp]}
+              header={item[nameProp]}
+              sub={item[pointProp]}
+            />
 
-        </span>
-      {/each}
+          </span>
+        {/each}
+      {:else}
+        <slot name="body" />
+      {/if}
 
       {#if needPag}
         <Pagination

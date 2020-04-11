@@ -25,10 +25,16 @@
 
 <script>
   import { onMount } from 'svelte'
-  import Pagination from './components/Pagination.svelte'
-  import { initItems, items, paginatedItems, currentPage } from './tools/store'
-  import Item from './components/Item.svelte'
+  import { writable } from 'svelte/store'
   import { fade } from 'svelte/transition'
+
+  const items = writable([])
+  const paginatedItems = writable([])
+  const currentPage = writable(1)
+
+  import Pagination from './components/Pagination.svelte'
+  import Item from './components/Item.svelte'
+
   export let endpoint
 
   export let pageSize = 3
@@ -76,6 +82,41 @@
     await initItems(endpoint, sortFunc, needIndex, endpointIsStore)
   }
 
+  const initItems = async (endpoint, sortFunc, needIndex, endpointIsStore) => {
+    if (endpointIsStore) {
+      endpoint.subscribe(e => {
+        e.sort(sortFunc)
+
+        items.set(e)
+
+        if (needIndex) {
+          items.update(item =>
+            item.map((item, index) => {
+              item.index = ++index
+              return item
+            })
+          )
+        }
+      })
+    } else {
+      let result = await endpoint()
+      if (result) {
+        if (sortFunc) {
+          result.sort(sortFunc)
+        }
+
+        if (needIndex) {
+          result.forEach((item, index) => {
+            item.index = ++index
+            return item
+          })
+        }
+
+        items.set(result)
+      }
+    }
+  }
+
   onMount(init)
 </script>
 
@@ -118,6 +159,7 @@
           totalItems={$items.length}
           {pageSize}
           {limit}
+          {currentPage}
           showStepOptions={true}
         />
       {/if}

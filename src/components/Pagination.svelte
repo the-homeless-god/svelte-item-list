@@ -34,10 +34,10 @@
 
 <script>
   import SymbolEnum from '../enums/symbol.enum'
-  import { currentPage } from '../tools/store'
 
   export let totalItems = 0
   export let pageSize = 1
+  export let currentPage
   export let limit = null
   export let showStepOptions = false
 

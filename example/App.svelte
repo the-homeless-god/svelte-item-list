@@ -24,13 +24,14 @@
   isVisible={!hide}
   needPag={true}
   endpointIsStore={true}
+  pageSize={10}
   endpoint={store}
 >
   <div slot="loading">...loading</div>
 </ItemList>
 
 <!-- with promise method-->
-<ItemList isVisible={!hide} needPag={true} endpoint={async () => items}>
+<ItemList isVisible={!hide} pageSize={3} needPag={true} endpoint={async () => items}>
   <div slot="loading">...loading</div>
 </ItemList>
 

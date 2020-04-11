@@ -28,7 +28,7 @@
   import Pagination from './components/Pagination.svelte'
   import { initItems, items, paginatedItems, currentPage } from './tools/store'
   import Item from './components/Item.svelte'
-
+  import { fade } from 'svelte/transition'
   export let endpoint
 
   export let pageSize = 3
@@ -80,7 +80,7 @@
 </script>
 
 {#if isVisible}
-  <div class="item-container">
+  <div out:fade class="item-container">
     {#if $items.length === 0}
       <slot name="loading" />
     {:else}

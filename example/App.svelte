@@ -3,7 +3,7 @@
   import { writable } from 'svelte/store'
 
   const store = writable([])
-
+  let hide = false
   let items = []
 
   for (let i = 0; i < 100; i++) {
@@ -20,11 +20,18 @@
 </script>
 
 <!-- with store method-->
-<ItemList needPag={true} endpointIsStore={true} endpoint={store}>
+<ItemList
+  isVisible={!hide}
+  needPag={true}
+  endpointIsStore={true}
+  endpoint={store}
+>
   <div slot="loading">...loading</div>
 </ItemList>
 
 <!-- with promise method-->
-<ItemList needPag={true} endpoint={async () => items}>
+<ItemList isVisible={!hide} needPag={true} endpoint={async () => items}>
   <div slot="loading">...loading</div>
 </ItemList>
+
+<button on:click={() => (hide = !hide)}>hide</button>

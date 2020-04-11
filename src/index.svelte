@@ -57,6 +57,9 @@
   export let iconProp = 'icon'
   export let light = 'light'
 
+  export let headerEnabled = false
+  export let headerText = ''
+
   export let clickFunc = item => {}
 
   export let sortFunc = (a, b) => {
@@ -121,6 +124,10 @@
 </script>
 
 {#if isVisible}
+  {#if headerEnabled}
+    <div out:fade class="item-header">{headerText}</div>
+  {/if}
+
   <div out:fade class="item-container">
     {#if $items.length === 0}
       <slot name="loading" />

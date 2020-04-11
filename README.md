@@ -84,8 +84,13 @@ import ItemList from 'svelte-item-list'
 | `descIsHTML`      | false         | Make a description to html view                           |
 | `limit`           | 1             | Make limited options for the numbers                      |
 | `needBody`        | true          | Need display list by default view or use slot             |
-
+| `headerEnabled`   | false         | Need display list title                                   |
+| `headerText`      | ''            | List title text                                           |
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list
 [example-folder-url]: https://github.com/Zimtir/svelte-item-list/tree/master/example
+
+## todo
+
+- make props better to use

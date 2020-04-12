@@ -27,23 +27,166 @@ Look at the [example folder][example-folder-url] for a basic working example.
 
 ```html
 <!-- App.html -->
-<ItemList
-  needPag={true}
-  endpoint={async () => {
-    return [
-      {
-        name: 'Item name',
-        icon: '/favicon.png',
-        description: '',
-        point: 100
-      }
-    ]
-  }}>
+<!-- with store method-->
+<ItemList configuration="{storeConfiguration}">
+  <div slot="loading">...loading</div>
+</ItemList>
+
+<!-- with promise method-->
+<ItemList configuration="{promiseConfiguration}">
+  <div slot="loading">...loading</div>
+</ItemList>
+
+<!-- without configuration-->
+<ItemList>
   <div slot="loading">...loading</div>
 </ItemList>
 
 <script>
-  import ItemList from 'svelte-item-list';
+  import ItemList from 'svelte-item-list'
+
+  let classListModel = {
+    root: 'item-list__container',
+    header: 'item-list__header_text',
+    item: {
+      root: 'item-list__item-text',
+      description: {
+        name: 'item-list_item-name-text',
+        root: 'item-list__description-root',
+        text: 'item-list__description-text'
+      },
+      icon: 'item-list__item-icon',
+      index: 'item-list__item-index',
+      point: 'item-list__item-point'
+    },
+
+    pagination: {
+      root: 'item-list__pagination',
+      option: 'pagination__option',
+      arrow: {
+        doubleLeft: 'icon-angle-double-left',
+        left: 'icon-angle-left',
+        right: 'icon-angle-right',
+        doubleRight: 'icon-angle-double-right'
+      }
+    }
+  }
+
+  let storeConfiguration = {
+    global: {
+      classListModel: classListModel,
+      body: {
+        enabled: true
+      },
+      isVisible: false,
+      header: {
+        enabled: true,
+        text: 'Example with store configuration'
+      }
+    },
+    endpoint: {
+      isStore: true,
+      value: store,
+      sortFunction: () => {}
+    },
+    pagination: {
+      enabled: true,
+      pageSize: 10,
+      step: {
+        limit: 1,
+        enabled: true
+      }
+    },
+    item: {
+      clickFunction: item => {},
+      bold: {
+        enabled: true,
+        count: 5
+      },
+      name: {
+        enabled: true,
+        prop: 'name'
+      },
+      description: {
+        enabled: true,
+        prop: 'description',
+        isHTML: true
+      },
+      point: {
+        enabled: true,
+        prop: 'point',
+        isTimeago: false
+      },
+      icon: {
+        enabled: true,
+        prop: 'icon'
+      },
+      index: {
+        enabled: true
+      },
+      light: {
+        prop: 'light'
+      }
+    }
+  }
+
+  let promiseConfiguration = {
+    global: {
+      classListModel: classListModel,
+      isVisible: false,
+      body: {
+        enabled: true
+      },
+      header: {
+        enabled: true,
+        text: 'Example with store configuration'
+      }
+    },
+    endpoint: {
+      isStore: false,
+      value: async () => items,
+      sortFunction: () => {}
+    },
+    pagination: {
+      enabled: true,
+      pageSize: 3,
+      step: {
+        limit: 1,
+        enabled: true
+      }
+    },
+    item: {
+      clickFunction: item => {},
+      bold: {
+        enabled: true,
+        count: 5
+      },
+      name: {
+        enabled: true,
+        prop: 'name'
+      },
+      description: {
+        enabled: true,
+        prop: 'description',
+        isHTML: true
+      },
+      point: {
+        enabled: true,
+        prop: 'point',
+        isTimeago: false
+      },
+      icon: {
+        enabled: true,
+        prop: 'icon'
+      },
+      index: {
+        enabled: true
+      },
+      light: {
+        prop: 'light'
+      }
+    }
+  }
 </script>
 ```
 
@@ -163,6 +306,7 @@ let configuration = {
 
 - drop non-required fields from config to use default when not assigned
 - add animations to config
+- add comments to config
 - add search
 - add filters
 - add graphs

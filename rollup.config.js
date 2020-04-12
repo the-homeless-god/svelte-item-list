@@ -1,7 +1,11 @@
 import svelte from 'rollup-plugin-svelte'
 import resolve from 'rollup-plugin-node-resolve'
 import typescript from 'rollup-plugin-typescript2'
-import { preprocess, createEnv, readConfigFile } from '@pyoner/svelte-ts-preprocess'
+import {
+  preprocess,
+  createEnv,
+  readConfigFile,
+} from '@pyoner/svelte-ts-preprocess'
 
 import pkg from './package.json'
 
@@ -13,8 +17,8 @@ const opts = {
   env,
   compilerOptions: {
     ...compilerOptions,
-    allowNonTsExtensions: true
-  }
+    allowNonTsExtensions: true,
+  },
 }
 
 export default [
@@ -23,11 +27,11 @@ export default [
     output: { file: pkg.main, format: 'umd', name: 'ItemList' },
     plugins: [
       svelte({
-        preprocess: preprocess(opts)
+        preprocess: preprocess(opts),
       }),
       resolve(),
-      typescript()
-    ]
+      typescript(),
+    ],
   },
   {
     input,
@@ -35,9 +39,9 @@ export default [
     external: ['svelte/internal'],
     plugins: [
       svelte({
-        preprocess: preprocess(opts)
+        preprocess: preprocess(opts),
       }),
-      typescript()
-    ]
-  }
+      typescript(),
+    ],
+  },
 ]

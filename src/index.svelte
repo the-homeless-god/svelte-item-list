@@ -26,7 +26,7 @@
 <script>
   import { onMount } from 'svelte'
   import { writable } from 'svelte/store'
-  import { fade } from 'svelte/transition'
+  import { fade, fly } from 'svelte/transition'
 
   const items = writable([])
   const paginatedItems = writable([])
@@ -125,7 +125,7 @@
 
 {#if isVisible}
 
-  <div out:fade class="item-container">
+  <div out:fade in:fly="{{ y: 200, duration: 2000 }}" class="item-container">
     {#if headerEnabled}
       <div out:fade class="item-header">{headerText}</div>
     {/if}

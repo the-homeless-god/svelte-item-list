@@ -94,3 +94,4 @@ import ItemList from 'svelte-item-list'
 ## todo
 
 - make props better to use
+- animation config

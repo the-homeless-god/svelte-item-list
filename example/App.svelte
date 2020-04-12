@@ -88,7 +88,6 @@
   import { writable } from 'svelte/store'
 
   const store = writable([])
-  let hide = false
   let items = []
 
   for (let i = 0; i < 100; i++) {
@@ -129,29 +128,144 @@
       }
     }
   }
+
+  let storeConfiguration = {
+    global: {
+      classListModel: classListModel,
+      body: {
+        enabled: true
+      },
+      isVisible: false,
+      header: {
+        enabled: true,
+        text: 'Example with store configuration'
+      }
+    },
+    endpoint: {
+      isStore: true,
+      value: store,
+      sortFunction: () => {}
+    },
+    pagination: {
+      enabled: true,
+      pageSize: 10,
+      step: {
+        limit: 1,
+        enabled: true
+      }
+    },
+    item: {
+      clickFunction: item => {},
+      bold: {
+        enabled: true,
+        count: 5
+      },
+      name: {
+        enabled: true,
+        prop: 'name'
+      },
+      description: {
+        enabled: true,
+        prop: 'description',
+        isHTML: true
+      },
+      point: {
+        enabled: true,
+        prop: 'point',
+        isTimeago: false
+      },
+      icon: {
+        enabled: true,
+        prop: 'icon'
+      },
+      index: {
+        enabled: true
+      },
+      light: {
+        prop: 'light'
+      }
+    }
+  }
+
+  let promiseConfiguration = {
+    global: {
+      classListModel: classListModel,
+      isVisible: false,
+      body: {
+        enabled: true
+      },
+      header: {
+        enabled: true,
+        text: 'Example with store configuration'
+      }
+    },
+    endpoint: {
+      isStore: false,
+      value: async () => items,
+      sortFunction: () => {}
+    },
+    pagination: {
+      enabled: true,
+      pageSize: 3,
+      step: {
+        limit: 1,
+        enabled: true
+      }
+    },
+    item: {
+      clickFunction: item => {},
+      bold: {
+        enabled: true,
+        count: 5
+      },
+      name: {
+        enabled: true,
+        prop: 'name'
+      },
+      description: {
+        enabled: true,
+        prop: 'description',
+        isHTML: true
+      },
+      point: {
+        enabled: true,
+        prop: 'point',
+        isTimeago: false
+      },
+      icon: {
+        enabled: true,
+        prop: 'icon'
+      },
+      index: {
+        enabled: true
+      },
+      light: {
+        prop: 'light'
+      }
+    }
+  }
 </script>
 
 <!-- with store method-->
-<ItemList
-  isVisible={!hide}
-  needPag={true}
-  endpointIsStore={true}
-  pageSize={10}
-  {classListModel}
-  endpoint={store}
->
+<ItemList configuration={storeConfiguration}>
   <div slot="loading">...loading</div>
 </ItemList>
 
 <!-- with promise method-->
-<ItemList
-  isVisible={!hide}
-  pageSize={3}
-  needPag={true}
-  {classListModel}
-  endpoint={async () => items}
->
+<ItemList configuration={promiseConfiguration}>
   <div slot="loading">...loading</div>
 </ItemList>
 
-<button on:click={() => (hide = !hide)}>hide</button>
+<!-- without configuration-->
+<ItemList>
+  <div slot="loading">...loading</div>
+</ItemList>
+
+<button
+  on:click={() => {
+    promiseConfiguration.global.isVisible = !promiseConfiguration.global.isVisible
+    storeConfiguration.global.isVisible = !storeConfiguration.global.isVisible
+  }}
+>
+  hide
+</button>

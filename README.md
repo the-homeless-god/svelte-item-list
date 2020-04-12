@@ -59,65 +59,97 @@ The item list component is the only export of the module.
 import ItemList from 'svelte-item-list'
 ```
 
-###### Properties
+#### Configuration
 
-| Property          | Default Value | Description                                               |
-| :---------------- | :------------ | :-------------------------------------------------------- |
-| `endpoint`        | undefined     | The endpoint function with return of values               |
-| `nameProp`        | `name`        | The key of name property in the object by endpoint.       |
-| `descProp`        | `description` | The key of description property in the object by endpoint |
-| `pointProp`       | `point`       | The key of point property in the object by endpoint.      |
-| `iconProp`        | `icon`        | The key of icon property in the object by endpoint.       |
-| `lightProp`       | `light`       | The key of light property in the object by endpoint.      |
-| `needPag`         | true          | Enable pagination under list of items or no               |
-| `currentPage`     | 1             | Number of selected page by default at pagination          |
-| `pageSize`        | 10            | Count of items at one page inside pagination              |
-| `needIndex`       | true          | Enable or disable indexes at left of item                 |
-| `boldIndex`       | 5             | Count of items with bold name                             |
-| `needPoint`       | true          | Show point field                                          |
-| `sortFunc`        | point - point | Function to sort list of items                            |
-| `clickFunc`       | return        | Function to catch the click at item                       |
-| `needIcon`        | true          | Show icon field                                           |
-| `needTimeago`     | false         | Enable or disable format point field through timeago      |
-| `isVisible`       | false         | (!IMPORTANT param) Enable or disable visibility of tool   |
-| `endpointIsStore` | false         | Subscribe to endpoint when it provided as store           |
-| `descIsHTML`      | false         | Make a description to html view                           |
-| `limit`           | 1             | Make limited options for the numbers                      |
-| `needBody`        | true          | Need display list by default view or use slot             |
-| `headerEnabled`   | false         | Need display list title                                   |
-| `headerText`      | ''            | List title text                                           |
-| `classListModel`  | read below    | Class list model for component                            |
+###### Note: all fields required when you want to create own configuration
 
-###### Class list model
-
+- Describe model and pass to component or use default
+- Describe own configuration (you can look at example)
 - Describe own global-classes (you can look at example)
-- Describe model and pass to component or use exist
-- Now model looks like the following
+- Default configuration looks like the following
 
 ```javascript
-let classListModel = {
-  root: 'item-list__item-container',
-  header: 'item-list__header_text',
-  item: {
-    root: 'item_list__item-text',
-    description: {
-      name: 'item_list_item-name-text',
-      root: 'item-list__description-root',
-      text: 'item-list__description-text'
-    },
-    icon: 'item-list__item-icon',
-    index: 'item-list__item-index',
-    point: 'item-list__item-point'
-  },
+let configuration = {
+  global: {
+    classListModel: {
+      root: 'item-list__item-container',
+      header: 'item-list__header_text',
+      item: {
+        root: 'item_list__item-text',
+        description: {
+          name: 'item_list_item-name-text',
+          root: 'item-list__description-root',
+          text: 'item-list__description-text'
+        },
+        icon: 'item-list__item-icon',
+        index: 'item-list__item-index',
+        point: 'item-list__item-point'
+      },
 
+      pagination: {
+        root: 'item-list__pagination',
+        option: 'pagination__option',
+        arrow: {
+          doubleLeft: 'icon-angle-double-left',
+          left: 'icon-angle-left',
+          right: 'icon-angle-right',
+          doubleRight: 'icon-angle-double-right'
+        }
+      }
+    },
+    isVisible: false,
+    body: {
+      enabled: true
+    },
+    header: {
+      enabled: true,
+      text: ''
+    }
+  },
+  endpoint: {
+    isStore: false,
+    value: async () => [],
+    sortFunction: (a, b) => {
+      return a[pointProp] - b[pointProp]
+    }
+  },
   pagination: {
-    root: 'item-list__pagination',
-    option: 'pagination__option',
-    arrow: {
-      doubleLeft: 'icon-angle-double-left',
-      left: 'icon-angle-left',
-      right: 'icon-angle-right',
-      doubleRight: 'icon-angle-double-right'
+    enabled: true,
+    pageSize: 3,
+    step: {
+      limit: 1,
+      enabled: true
+    }
+  },
+  item: {
+    clickFunction: item => {},
+    bold: {
+      enabled: true,
+      count: 5
+    },
+    name: {
+      enabled: true,
+      prop: 'name'
+    },
+    description: {
+      enabled: true,
+      prop: 'description',
+      isHTML: true
+    },
+    point: {
+      enabled: true,
+      prop: 'point',
+      isTimeago: false
+    },
+    icon: {
+      enabled: true,
+      prop: 'icon'
+    },
+    index: {
+      enabled: true
+    },
+    light: {
+      prop: 'light'
     }
   }
 }
@@ -129,5 +161,8 @@ let classListModel = {
 
 ## todo
 
-- make props better to use
-- animation config
+- drop non-required fields from config to use default when not assigned
+- add animations to config
+- add search
+- add filters
+- add graphs

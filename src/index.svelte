@@ -1,97 +1,131 @@
 <script>
   import { onMount } from 'svelte'
   import { writable } from 'svelte/store'
-  import { fade, fly } from 'svelte/transition'
+  import { fade } from 'svelte/transition'
+
+  import Pagination from './components/Pagination.svelte'
+  import Item from './components/Item.svelte'
 
   const items = writable([])
   const paginatedItems = writable([])
   const currentPage = writable(1)
 
-  import Pagination from './components/Pagination.svelte'
-  import Item from './components/Item.svelte'
+  export let configuration = {
+    global: {
+      classListModel: {
+        root: 'item-list__item-container',
+        header: 'item-list__header_text',
+        item: {
+          root: 'item_list__item-text',
+          description: {
+            name: 'item_list_item-name-text',
+            root: 'item-list__description-root',
+            text: 'item-list__description-text'
+          },
+          icon: 'item-list__item-icon',
+          index: 'item-list__item-index',
+          point: 'item-list__item-point'
+        },
 
-  export let endpoint
-
-  export let pageSize = 3
-  export let boldIndex = 5
-
-  export let limit = 1
-  export let isVisible = false
-  export let endpointIsStore = false
-
-  export let needPag = true
-  export let needIndex = true
-  export let needPoint = true
-  export let needIcon = true
-  export let needTimeago = false
-  export let needBody = true
-
-  export let nameProp = 'name'
-  export let descProp = 'description'
-  export let pointProp = 'point'
-  export let iconProp = 'icon'
-  export let light = 'light'
-
-  export let headerEnabled = false
-  export let headerText = ''
-
-  export let clickFunc = item => {}
-
-  export let sortFunc = (a, b) => {
-    return a[pointProp] - b[pointProp]
-  }
-
-  export let classListModel = {
-    root: 'item-list__item-container',
-    header: 'item-list__header_text',
-    item: {
-      root: 'item_list__item-text',
-      description: {
-        name: 'item_list_item-name-text',
-        root: 'item-list__description-root',
-        text: 'item-list__description-text'
+        pagination: {
+          root: 'item-list__pagination',
+          option: 'pagination__option',
+          arrow: {
+            doubleLeft: 'icon-angle-double-left',
+            left: 'icon-angle-left',
+            right: 'icon-angle-right',
+            doubleRight: 'icon-angle-double-right'
+          }
+        }
       },
-      icon: 'item-list__item-icon',
-      index: 'item-list__item-index',
-      point: 'item-list__item-point'
+      isVisible: false,
+      body: {
+        enabled: true
+      },
+      header: {
+        enabled: true,
+        text: ''
+      }
     },
-
+    endpoint: {
+      isStore: false,
+      value: async () => [],
+      sortFunction: (a, b) => {
+        return a[pointProp] - b[pointProp]
+      }
+    },
     pagination: {
-      root: 'item-list__pagination',
-      option: 'pagination__option',
-      arrow: {
-        doubleLeft: 'icon-angle-double-left',
-        left: 'icon-angle-left',
-        right: 'icon-angle-right',
-        doubleRight: 'icon-angle-double-right'
+      enabled: true,
+      pageSize: 3,
+      step: {
+        limit: 1,
+        enabled: true
+      }
+    },
+    item: {
+      clickFunction: item => {},
+      bold: {
+        enabled: true,
+        count: 5
+      },
+      name: {
+        enabled: true,
+        prop: 'name'
+      },
+      description: {
+        enabled: true,
+        prop: 'description',
+        isHTML: true
+      },
+      point: {
+        enabled: true,
+        prop: 'point',
+        isTimeago: false
+      },
+      icon: {
+        enabled: true,
+        prop: 'icon'
+      },
+      index: {
+        enabled: true
+      },
+      light: {
+        prop: 'light'
       }
     }
   }
 
   const init = async () => {
     currentPage.subscribe(value => {
-      if (needPag) {
+      if (configuration.pagination.enabled) {
         paginatedItems.set(
           $items.slice(
-            (value - 1) * pageSize,
-            (value - 1) * pageSize + pageSize
+            (value - 1) * configuration.pagination.pageSize,
+            (value - 1) * configuration.pagination.pageSize +
+              configuration.pagination.pageSize
           )
         )
       } else paginatedItems.set($items)
     })
 
     items.subscribe(value => {
-      if (needPag) {
+      if (configuration.pagination.enabled) {
         paginatedItems.set(
           value.slice(
-            ($currentPage - 1) * pageSize,
-            ($currentPage - 1) * pageSize + pageSize
+            ($currentPage - 1) * configuration.pagination.pageSize,
+            ($currentPage - 1) * configuration.pagination.pageSize +
+              configuration.pagination.pageSize
           )
         )
       } else paginatedItems.set(value)
     })
 
-    await initItems(endpoint, sortFunc, needIndex, endpointIsStore)
+    await initItems(
+      configuration.endpoint.value,
+      configuration.endpoint.sortFunction,
+      configuration.item.index.enabled,
+      configuration.endpoint.isStore
+    )
   }
 
   const initItems = async (endpoint, sortFunc, needIndex, endpointIsStore) => {
@@ -132,11 +166,13 @@
   onMount(init)
 </script>
 
-{#if isVisible}
+{#if configuration.global.isVisible}
 
-  <div out:fade in:fade class={classListModel.root}>
-    {#if headerEnabled}
-      <div out:fade class={classListModel.header}>{headerText}</div>
+  <div out:fade in:fade class={configuration.global.classListModel.root}>
+    {#if configuration.global.header.enabled}
+      <div out:fade class={configuration.global.classListModel.header}>
+        {configuration.global.header.text}
+      </div>
     {/if}
 
     {#if $items.length === 0}
@@ -144,26 +180,18 @@
     {:else}
       <slot name="header" />
 
-      {#if needBody}
+      {#if configuration.global.body.enabled}
         {#each $paginatedItems as item}
           <span
-            on:click={() => clickFunc(item)}
-            class:light={item[light]}
-            class={classListModel.item.root}
+            on:click={() => configuration.item.clickFunction(item)}
+            class:light={item[configuration.item.light.prop]}
+            class={configuration.global.classListModel.item.root}
           >
 
             <Item
-              {needIcon}
-              {needIndex}
-              {needTimeago}
-              {needPoint}
-              {classListModel}
-              index={item.index}
-              bold={item.index < boldIndex}
-              icon={item[iconProp]}
-              body={item[descProp]}
-              header={item[nameProp]}
-              sub={item[pointProp]}
+              configuration={configuration.item}
+              classListModel={configuration.global.classListModel}
+              {item}
             />
 
           </span>
@@ -172,14 +200,14 @@
         <slot items={$paginatedItems} name="body" />
       {/if}
 
-      {#if needPag}
+      {#if configuration.pagination.enabled}
         <Pagination
           totalItems={$items.length}
-          {pageSize}
-          {limit}
-          {classListModel}
+          pageSize={configuration.pagination.pageSize}
+          limit={configuration.pagination.step.limit}
+          classListModel={configuration.global.classListModel}
           {currentPage}
-          showStepOptions={true}
+          showStepOptions={configuration.pagination.step.enabled}
         />
       {/if}
     {/if}

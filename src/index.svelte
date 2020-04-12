@@ -41,7 +41,7 @@
   export let boldIndex = 5
 
   export let limit = 1
-  export let isVisible = true
+  export let isVisible = false
   export let endpointIsStore = false
 
   export let needPag = true

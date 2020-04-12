@@ -79,7 +79,7 @@ import ItemList from 'svelte-item-list'
 | `clickFunc`       | return        | Function to catch the click at item                       |
 | `needIcon`        | true          | Show icon field                                           |
 | `needTimeago`     | false         | Enable or disable format point field through timeago      |
-| `isVisible`       | true          | (!IMPORTANT param) Enable or disable visibility of tool   |
+| `isVisible`       | false         | (!IMPORTANT param) Enable or disable visibility of tool   |
 | `endpointIsStore` | false         | Subscribe to endpoint when it provided as store           |
 | `descIsHTML`      | false         | Make a description to html view                           |
 | `limit`           | 1             | Make limited options for the numbers                      |

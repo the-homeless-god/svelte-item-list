@@ -16,10 +16,12 @@
   export let header
   export let sub
 
+  export let classListModel
+
   export let descIsHTML
 </script>
 
-<Index visible={needIndex} {index} />
-<Icon visible={needIcon} src={icon} />
-<Description {descIsHTML} {bold} {header} {body} />
-<Sub visible={needPoint} value={sub} {needTimeago} />
+<Index {classListModel} visible={needIndex} {index} />
+<Icon {classListModel} visible={needIcon} src={icon} />
+<Description {classListModel} {descIsHTML} {bold} {header} {body} />
+<Sub {classListModel} visible={needPoint} value={sub} {needTimeago} />

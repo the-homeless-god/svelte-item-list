@@ -86,6 +86,42 @@ import ItemList from 'svelte-item-list'
 | `needBody`        | true          | Need display list by default view or use slot             |
 | `headerEnabled`   | false         | Need display list title                                   |
 | `headerText`      | ''            | List title text                                           |
+| `classListModel`  | read below    | Class list model for component                            |
+
+###### Class list model
+
+- Describe own global-classes (you can look at example)
+- Describe model and pass to component or use exist
+- Now model looks like the following
+
+```javascript
+let classListModel = {
+  root: 'item-list__item-container',
+  header: 'item-list__header_text',
+  item: {
+    root: 'item_list__item-text',
+    description: {
+      name: 'item_list_item-name-text',
+      root: 'item-list__description-root',
+      text: 'item-list__description-text'
+    },
+    icon: 'item-list__item-icon',
+    index: 'item-list__item-index',
+    point: 'item-list__item-point'
+  },
+
+  pagination: {
+    root: 'item-list__pagination',
+    option: 'pagination__option',
+    arrow: {
+      doubleLeft: 'icon-angle-double-left',
+      left: 'icon-angle-left',
+      right: 'icon-angle-right',
+      doubleRight: 'icon-angle-double-right'
+    }
+  }
+}
+```
 
 [npm]: https://img.shields.io/npm/v/svelte-item-list.svg
 [npm-url]: https://npmjs.com/package/svelte-item-list

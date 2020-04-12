@@ -1,20 +1,18 @@
-<style>
-  .item-score {
-    margin-left: auto;
-    font-weight: 500;
-  }
-</style>
-
 <script>
   export let value
   export let visible = false
   export let needTimeago = false
+  export let classListModel = {
+    item: {
+      point: 'item-point'
+    }
+  }
 
   import * as timeago from 'timeago.js'
 </script>
 
 {#if visible}
-  <span class="item-score">
+  <span class={classListModel.item.point}>
     {#if !needTimeago}
       {value}
     {:else}

@@ -1,16 +1,13 @@
-<style>
-  .item-index {
-    min-width: 32px;
-    text-align: right;
-    margin-right: 8px;
-  }
-</style>
-
 <script>
   export let index
   export let visible = false
+  export let classListModel = {
+    item: {
+      index: 'item-index'
+    }
+  }
 </script>
 
 {#if visible}
-  <span class="item-index">{index}</span>
+  <span class={classListModel.item.index}>{index}</span>
 {/if}

@@ -1,28 +1,3 @@
-<style>
-  .item-container {
-    margin: 15px;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .item-container .item-text {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 10px;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  .item-container > span:nth-child(even) {
-    background: rgb(248, 248, 248);
-  }
-
-  .item-container .light {
-    box-shadow: 0 0 3px 1px #ccc;
-  }
-</style>
-
 <script>
   import { onMount } from 'svelte'
   import { writable } from 'svelte/store'
@@ -64,6 +39,33 @@
 
   export let sortFunc = (a, b) => {
     return a[pointProp] - b[pointProp]
+  }
+
+  export let classListModel = {
+    root: 'item-list__item-container',
+    header: 'item-list__header_text',
+    item: {
+      root: 'item_list__item-text',
+      description: {
+        name: 'item_list_item-name-text',
+        root: 'item-list__description-root',
+        text: 'item-list__description-text'
+      },
+      icon: 'item-list__item-icon',
+      index: 'item-list__item-index',
+      point: 'item-list__item-point'
+    },
+
+    pagination: {
+      root: 'item-list__pagination',
+      option: 'pagination__option',
+      arrow: {
+        doubleLeft: 'icon-angle-double-left',
+        left: 'icon-angle-left',
+        right: 'icon-angle-right',
+        doubleRight: 'icon-angle-double-right'
+      }
+    }
   }
 
   const init = async () => {
@@ -132,9 +134,9 @@
 
 {#if isVisible}
 
-  <div out:fade in:fly={{ y: 200, duration: 2000 }} class="item-container">
+  <div out:fade in:fade class={classListModel.root}>
     {#if headerEnabled}
-      <div out:fade class="item-header">{headerText}</div>
+      <div out:fade class={classListModel.header}>{headerText}</div>
     {/if}
 
     {#if $items.length === 0}
@@ -147,7 +149,7 @@
           <span
             on:click={() => clickFunc(item)}
             class:light={item[light]}
-            class="item-text"
+            class={classListModel.item.root}
           >
 
             <Item
@@ -155,6 +157,7 @@
               {needIndex}
               {needTimeago}
               {needPoint}
+              {classListModel}
               index={item.index}
               bold={item.index < boldIndex}
               icon={item[iconProp]}
@@ -174,6 +177,7 @@
           totalItems={$items.length}
           {pageSize}
           {limit}
+          {classListModel}
           {currentPage}
           showStepOptions={true}
         />

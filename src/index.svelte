@@ -68,18 +68,25 @@
 
   const init = async () => {
     currentPage.subscribe(value => {
-      paginatedItems.set(
-        $items.slice((value - 1) * pageSize, (value - 1) * pageSize + pageSize)
-      )
+      if (needPag) {
+        paginatedItems.set(
+          $items.slice(
+            (value - 1) * pageSize,
+            (value - 1) * pageSize + pageSize
+          )
+        )
+      }
     })
 
     items.subscribe(value => {
-      paginatedItems.set(
-        value.slice(
-          ($currentPage - 1) * pageSize,
-          ($currentPage - 1) * pageSize + pageSize
+      if (needPag) {
+        paginatedItems.set(
+          value.slice(
+            ($currentPage - 1) * pageSize,
+            ($currentPage - 1) * pageSize + pageSize
+          )
         )
-      )
+      }
     })
 
     await initItems(endpoint, sortFunc, needIndex, endpointIsStore)

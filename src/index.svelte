@@ -75,7 +75,7 @@
             (value - 1) * pageSize + pageSize
           )
         )
-      }
+      } else paginatedItems.set($items)
     })
 
     items.subscribe(value => {
@@ -86,7 +86,7 @@
             ($currentPage - 1) * pageSize + pageSize
           )
         )
-      }
+      } else paginatedItems.set(value)
     })
 
     await initItems(endpoint, sortFunc, needIndex, endpointIsStore)
@@ -132,7 +132,7 @@
 
 {#if isVisible}
 
-  <div out:fade in:fly="{{ y: 200, duration: 2000 }}" class="item-container">
+  <div out:fade in:fly={{ y: 200, duration: 2000 }} class="item-container">
     {#if headerEnabled}
       <div out:fade class="item-header">{headerText}</div>
     {/if}

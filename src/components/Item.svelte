@@ -8,6 +8,20 @@
   export let configuration
 
   export let classListModel
+
+  const isBold = () => {
+    let output = false
+
+    if (configuration.bold.enabled) {
+      if (item.index) {
+        output = item.index <= configuration.bold.count
+      } else {
+        output = true
+      }
+    }
+
+    return output
+  }
 </script>
 
 <Index
@@ -25,7 +39,7 @@
 <Description
   {classListModel}
   visible={configuration.description.enabled}
-  bold={configuration.bold.count <= item.index}
+  bold={isBold()}
   descIsHTML={configuration.description.isHTML}
   header={item[configuration.name.prop]}
   body={item[configuration.description.prop]}

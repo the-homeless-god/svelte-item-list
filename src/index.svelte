@@ -124,11 +124,12 @@
 </script>
 
 {#if isVisible}
-  {#if headerEnabled}
-    <div out:fade class="item-header">{headerText}</div>
-  {/if}
 
   <div out:fade class="item-container">
+    {#if headerEnabled}
+      <div out:fade class="item-header">{headerText}</div>
+    {/if}
+
     {#if $items.length === 0}
       <slot name="loading" />
     {:else}

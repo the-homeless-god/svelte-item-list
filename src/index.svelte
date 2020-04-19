@@ -8,7 +8,9 @@
 
   const items = writable([])
   const paginatedItems = writable([])
-  const currentPage = writable(1)
+  const currentPage = configuration.pagination.currentPageStore
+    ? configuration.pagination.currentPageStore
+    : writable(1)
 
   export let configuration = {
     global: {
@@ -57,6 +59,7 @@
     pagination: {
       enabled: true,
       pageSize: 3,
+      currentPageStore: null,
       step: {
         limit: 1,
         enabled: true

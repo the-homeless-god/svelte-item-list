@@ -8,9 +8,6 @@
 
   const items = writable([])
   const paginatedItems = writable([])
-  const currentPage = configuration.pagination.currentPageStore
-    ? configuration.pagination.currentPageStore
-    : writable(1)
 
   export let configuration = {
     global: {
@@ -97,6 +94,10 @@
       }
     }
   }
+
+  const currentPage = configuration.pagination.currentPageStore
+    ? configuration.pagination.currentPageStore
+    : writable(1)
 
   const init = async () => {
     currentPage.subscribe(value => {

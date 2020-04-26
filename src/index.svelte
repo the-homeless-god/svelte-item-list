@@ -5,6 +5,7 @@
 
   import Pagination from './components/Pagination.svelte'
   import Item from './components/Item.svelte'
+  import Search from './components/Search.svelte'
 
   const items = writable([])
   const paginatedItems = writable([])
@@ -35,6 +36,14 @@
             right: 'icon-angle-right',
             doubleRight: 'icon-angle-double-right'
           }
+        },
+
+        search: {
+          root: 'item-list__search',
+          input: 'item-list__search-input',
+          icon: {
+            root: 'icon-search'
+          }
         }
       },
       isVisible: false,
@@ -44,6 +53,13 @@
       header: {
         enabled: true,
         text: ''
+      },
+      search: {
+        enabled: true,
+        placeholder: 'Search right now',
+        icon: {
+          enabled: true
+        }
       }
     },
     endpoint: {
@@ -167,6 +183,24 @@
     }
   }
 
+  const search = event => {
+    if (event.detail.length > 0) {
+      paginatedItems.set(
+        $items.filter(item => item.name.includes(event.detail))
+      )
+    } else {
+      if (configuration.pagination.enabled) {
+        paginatedItems.set(
+          $items.slice(
+            ($currentPage - 1) * configuration.pagination.pageSize,
+            ($currentPage - 1) * configuration.pagination.pageSize +
+              configuration.pagination.pageSize
+          )
+        )
+      } else paginatedItems.set($items)
+    }
+  }
+
   onMount(init)
 </script>
 
@@ -183,6 +217,14 @@
       <slot name="loading" />
     {:else}
       <slot name="header" />
+
+      {#if configuration.global.search.enabled}
+        <Search
+          configuration={configuration.global.search}
+          classListModel={configuration.global.classListModel}
+          on:search={search}
+        />
+      {/if}
 
       {#if configuration.global.body.enabled}
         {#each $paginatedItems as item}

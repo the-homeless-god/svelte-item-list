@@ -81,6 +81,27 @@
   :global(.item-list__pagination .option.current) {
     color: #747474;
   }
+
+  :global(.item-list__search) {
+    width: 100%;
+    margin: 10px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  :global(.item-list__search .icon-search) {
+    background: violet;
+    border: 1px solid black;
+    padding: 15px;
+  }
+
+  :global(.item-list__search input) {
+    font-size: 18px;
+    padding: 10px;
+    border: 1px solid gray;
+    border-left: none;
+  }
 </style>
 
 <script>
@@ -92,7 +113,7 @@
 
   for (let i = 0; i < 100; i++) {
     items.push({
-      name: 'Item name',
+      name: `Item name ${i}`,
       icon: '/favicon.png',
       description: 'some dec',
       point: i,
@@ -126,6 +147,14 @@
         right: 'icon-angle-right',
         doubleRight: 'icon-angle-double-right'
       }
+    },
+
+    search: {
+      root: 'item-list__search',
+      input: 'item-list__search-input',
+      icon: {
+        root: 'icon-search'
+      }
     }
   }
 
@@ -135,10 +164,17 @@
       body: {
         enabled: true
       },
-      isVisible: false,
+      isVisible: true,
       header: {
         enabled: true,
         text: 'Example with store configuration'
+      },
+      search: {
+        enabled: true,
+        placeholder: 'Search right now',
+        icon: {
+          enabled: true
+        }
       }
     },
     endpoint: {
@@ -190,9 +226,16 @@
   let promiseConfiguration = {
     global: {
       classListModel: classListModel,
-      isVisible: false,
+      isVisible: true,
       body: {
         enabled: true
+      },
+      search: {
+        enabled: true,
+        placeholder: 'Search right now',
+        icon: {
+          enabled: true
+        }
       },
       header: {
         enabled: true,

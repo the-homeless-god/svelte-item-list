@@ -238,6 +238,14 @@ let configuration = {
           right: 'icon-angle-right',
           doubleRight: 'icon-angle-double-right'
         }
+      },
+
+      search: {
+        root: 'item-list__search',
+        input: 'item-list__search-input',
+        icon: {
+          root: 'icon-search'
+        }
       }
     },
     isVisible: false,
@@ -247,6 +255,13 @@ let configuration = {
     header: {
       enabled: true,
       text: ''
+    },
+    search: {
+      enabled: true,
+      placeholder: 'Search right now',
+      icon: {
+        enabled: true
+      }
     }
   },
   endpoint: {

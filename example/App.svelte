@@ -103,6 +103,19 @@
     border: 1px solid gray;
     border-left: none;
   }
+
+  .full-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .item-icon {
+    width: 50px;
+  }
 </style>
 
 <script>
@@ -288,6 +301,71 @@
       }
     }
   }
+
+  let customItemConfiguration = {
+    global: {
+      classListModel: classListModel,
+      isVisible: true,
+      body: {
+        enabled: false
+      },
+      search: {
+        enabled: true,
+        placeholder: 'Search by name now',
+        icon: {
+          enabled: true
+        }
+      },
+      header: {
+        enabled: true,
+        text: 'Example with store configuration'
+      }
+    },
+    endpoint: {
+      isStore: false,
+      value: async () => items,
+      sortFunction: () => {}
+    },
+    pagination: {
+      enabled: true,
+      pageSize: 3,
+      step: {
+        limit: 1,
+        enabled: true
+      }
+    },
+    item: {
+      clickFunction: item => {},
+      bold: {
+        enabled: true,
+        count: 5
+      },
+      name: {
+        enabled: true,
+        prop: 'name'
+      },
+      description: {
+        enabled: true,
+        prop: 'description',
+        isHTML: true
+      },
+      point: {
+        enabled: true,
+        prop: 'point',
+        isTimeago: false
+      },
+      icon: {
+        enabled: true,
+        prop: 'icon'
+      },
+      index: {
+        enabled: true
+      },
+      light: {
+        prop: 'light'
+      }
+    }
+  }
 </script>
 
 <!-- with store method-->
@@ -303,6 +381,23 @@
 <!-- without configuration-->
 <ItemList>
   <div slot="loading">...loading</div>
+</ItemList>
+
+<!-- with custom item list -->
+<ItemList configuration={customItemConfiguration} let:items>
+  <div slot="loading">...loading</div>
+
+  <div class="full-flex full-width" slot="body">
+    {#each items as item}
+      <div class="full-flex full-width">
+        <img class="item-icon" src={item.icon} alt="icon" />
+        <div>
+          <b>{item.name}</b>
+          <div>{item.description}</div>
+        </div>
+      </div>
+    {/each}
+  </div>
 </ItemList>
 
 <button

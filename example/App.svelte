@@ -91,8 +91,9 @@
   }
 
   :global(.item-list__search .icon-search) {
-    background: violet;
+    background: black;
     border: 1px solid black;
+    color: white;
     padding: 15px;
   }
 

@@ -186,7 +186,7 @@
   const search = event => {
     if (event.detail.length > 0) {
       paginatedItems.set(
-        $items.filter(item => item.name.includes(event.detail))
+        $items.filter(item => item.name && item.name.includes(event.detail))
       )
     } else {
       if (configuration.pagination.enabled) {

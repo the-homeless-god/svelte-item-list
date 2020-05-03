@@ -261,7 +261,8 @@ let configuration = {
       placeholder: 'Search right now',
       icon: {
         enabled: true
-      }
+      },
+      property: 'name'
     }
   },
   endpoint: {
@@ -322,6 +323,5 @@ let configuration = {
 - drop non-required fields from config to use default when not assigned
 - add animations to config
 - add comments to config
-- add search
 - add filters
 - add graphs

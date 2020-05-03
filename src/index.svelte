@@ -59,7 +59,8 @@
         placeholder: 'Search right now',
         icon: {
           enabled: true
-        }
+        },
+        property: 'name'
       }
     },
     endpoint: {
@@ -186,7 +187,11 @@
   const search = event => {
     if (event.detail.length > 0) {
       paginatedItems.set(
-        $items.filter(item => item.name && item.name.includes(event.detail))
+        $items.filter(
+          item =>
+            item[configuration.global.search.property] &&
+            item[configuration.global.search.property].includes(event.detail)
+        )
       )
     } else {
       if (configuration.pagination.enabled) {

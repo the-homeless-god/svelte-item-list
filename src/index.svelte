@@ -45,6 +45,14 @@
           icon: {
             root: 'icon-search'
           }
+        },
+
+        filter: {
+          root: 'item-list__select',
+          select: 'item-select__filter',
+          icon: {
+            root: 'icon-th-list'
+          }
         }
       },
       isVisible: false,
@@ -62,6 +70,13 @@
           enabled: true
         },
         property: 'name'
+      },
+      filter: {
+        enabled: true,
+        placeholder: 'Filter right now',
+        icon: {
+          enabled: true
+        }
       }
     },
     endpoint: {
@@ -207,6 +222,10 @@
     }
   }
 
+  const filter = event => {
+    console.log('filter clicked', event)
+  }
+
   onMount(init)
 </script>
 
@@ -231,7 +250,15 @@
           on:search={search}
         />
       {/if}
-      <Filter />
+
+      {#if configuration.global.filter.enabled}
+        <Filter
+          configuration={configuration.global.filter}
+          classListModel={configuration.global.classListModel}
+          on:filter={filter}
+        />
+      {/if}
+
       {#if configuration.global.body.enabled}
         {#each $paginatedItems as item}
           <span

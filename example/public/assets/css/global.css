@@ -1,18 +1,1 @@
 @import './roboto.css';
-
-.item-list__select {
-  width: 100%;
-  margin: 10px 10px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.select__filter {
-  padding: 10px;
-  font-size: 18px;
-  font-family: Arial;
-  border: 1px solid gray;
-  box-sizing: border-box;
-  width: 240px;
-}

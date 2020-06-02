@@ -104,6 +104,30 @@
     border-left: none;
   }
 
+  :global(.item-list__select) {
+    width: 100%;
+    margin: 10px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  :global(.item-select__filter) {
+    padding: 10px;
+    font-size: 18px;
+    font-family: Arial;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    width: 240px;
+  }
+
+  :global(.item-list__select .icon-th-list) {
+    background: black;
+    border: 1px solid black;
+    color: white;
+    padding: 15px;
+  }
+
   .full-flex {
     display: flex;
     flex-wrap: wrap;
@@ -169,6 +193,14 @@
       icon: {
         root: 'icon-search'
       }
+    },
+
+    filter: {
+      root: 'item-list__select',
+      select: 'item-select__filter',
+      icon: {
+        root: 'icon-th-list'
+      }
     }
   }
 
@@ -186,6 +218,13 @@
       search: {
         enabled: true,
         placeholder: 'Search right now',
+        icon: {
+          enabled: true
+        }
+      },
+      filter: {
+        enabled: true,
+        placeholder: 'Filter right now',
         icon: {
           enabled: true
         }
@@ -254,6 +293,9 @@
       header: {
         enabled: true,
         text: 'Example with store configuration'
+      },
+      filter: {
+        enabled: false
       }
     },
     endpoint: {
@@ -319,6 +361,9 @@
       header: {
         enabled: true,
         text: 'Example with store configuration'
+      },
+      filter: {
+        enabled: false
       }
     },
     endpoint: {

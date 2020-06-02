@@ -6,6 +6,7 @@
   import Pagination from './components/Pagination.svelte'
   import Item from './components/Item.svelte'
   import Search from './components/Search.svelte'
+  import Filter from './components/Filter.svelte'
 
   const items = writable([])
   const paginatedItems = writable([])
@@ -230,7 +231,7 @@
           on:search={search}
         />
       {/if}
-
+      <Filter />
       {#if configuration.global.body.enabled}
         {#each $paginatedItems as item}
           <span

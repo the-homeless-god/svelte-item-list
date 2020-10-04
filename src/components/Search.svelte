@@ -3,8 +3,9 @@
 
   export let classListModel
   export let configuration
+  export let enabled: boolean = false
 
-  const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher<{ search: string }>()
 
   let value = ''
 
@@ -13,14 +14,16 @@
   }
 </script>
 
-<div class={classListModel.search.root}>
-  {#if configuration.icon.enabled}
-    <i class={classListModel.search.icon.root} />
-  {/if}
-  <input
-    bind:value
-    on:input={search}
-    class={classListModel.search.input}
-    placeholder={configuration.placeholder}
-  />
-</div>
+{#if enabled}
+  <div class={classListModel.search.root}>
+    {#if configuration.icon.enabled}
+      <i class={classListModel.search.icon.root} />
+    {/if}
+    <input
+      bind:value
+      on:input={search}
+      class={classListModel.search.input}
+      placeholder={configuration.placeholder}
+    />
+  </div>
+{/if}

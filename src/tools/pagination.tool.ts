@@ -1,4 +1,7 @@
+import { Writable, writable } from 'svelte/store'
+import type { Configuration } from '../configurations/config.interface'
 import SymbolEnum from '../enums/symbol.enum'
+import { log } from './logger.tool'
 
 export const getLimitThreshold = ({ limit }) => {
   const maximumUnlimitedPages = 3
@@ -6,12 +9,42 @@ export const getLimitThreshold = ({ limit }) => {
   return limit * 2 + maximumUnlimitedPages + numberOfBoundaryPages
 }
 
+export const getSearchStep = (page: number, size: number): number => {
+  return (page - 1) * size
+}
+
+export const getCurrentPage = (config: Configuration): Writable<number> => {
+  try {
+    const { currentStore } = config.pagination.page
+
+    if (currentStore) {
+      return currentStore
+    }
+
+    return writable(1)
+  } catch (error) {
+    log(config, error)
+    return writable(1)
+  }
+}
+
+export const getDoubleSearchStep = (page: number, size: number) => {
+  return getSearchStep(page, size) + size
+}
+
+export const paginateItems = <T>(
+  items: T[],
+  page: number,
+  size: number
+): T[] => {
+  return items.slice(getSearchStep(page, size), getDoubleSearchStep(page, size))
+}
+
 export const generateLimitedOptions = ({ totalPages, limit, currentPage }) => {
   const boundarySize = limit * 2 + 2
   const firstBoundary = 1 + boundarySize
   const lastBoundary = totalPages - boundarySize
   const totalShownPages = firstBoundary + 2
-
   if (currentPage <= firstBoundary - limit) {
     return Array(totalShownPages)
       .fill(null)
@@ -93,7 +126,7 @@ export const generateLimitedOptions = ({ totalPages, limit, currentPage }) => {
 }
 
 export const generateUnlimitedOptions = ({ totalPages }) => {
-  return new Array(totalPages).fill(null).map((value, index) => ({
+  return new Array(totalPages).fill(null).map((_value, index) => ({
     type: 'number',
     value: index + 1,
   }))

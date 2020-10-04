@@ -104,6 +104,30 @@
     border-left: none;
   }
 
+  :global(.item-list__select) {
+    width: 100%;
+    margin: 10px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  :global(.item-select__filter) {
+    padding: 10px;
+    font-size: 18px;
+    font-family: Arial;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    width: 240px;
+  }
+
+  :global(.item-list__select .icon-th-list) {
+    background: black;
+    border: 1px solid black;
+    color: white;
+    padding: 15px;
+  }
+
   .full-flex {
     display: flex;
     flex-wrap: wrap;
@@ -130,8 +154,8 @@
       name: `Item name ${i}`,
       icon: '/favicon.png',
       description: 'some dec',
-      point: i,
-      light: false
+      point: i * Math.random(),
+      light: false,
     })
   }
 
@@ -145,11 +169,11 @@
       description: {
         name: 'item-list_item-name-text',
         root: 'item-list__description-root',
-        text: 'item-list__description-text'
+        text: 'item-list__description-text',
       },
       icon: 'item-list__item-icon',
       index: 'item-list__item-index',
-      point: 'item-list__item-point'
+      point: 'item-list__item-point',
     },
 
     pagination: {
@@ -159,82 +183,100 @@
         doubleLeft: 'icon-angle-double-left',
         left: 'icon-angle-left',
         right: 'icon-angle-right',
-        doubleRight: 'icon-angle-double-right'
-      }
+        doubleRight: 'icon-angle-double-right',
+      },
     },
 
     search: {
       root: 'item-list__search',
       input: 'item-list__search-input',
       icon: {
-        root: 'icon-search'
-      }
-    }
+        root: 'icon-search',
+      },
+    },
+
+    filter: {
+      root: 'item-list__select',
+      select: 'item-select__filter',
+      icon: {
+        root: 'icon-th-list',
+      },
+    },
   }
 
   let storeConfiguration = {
     global: {
       classListModel: classListModel,
       body: {
-        enabled: true
+        enabled: true,
       },
       isVisible: true,
       header: {
         enabled: true,
-        text: 'Example with store configuration'
+        text: 'Example with store configuration',
       },
       search: {
         enabled: true,
         placeholder: 'Search right now',
         icon: {
-          enabled: true
-        }
-      }
+          enabled: true,
+        },
+        property: 'name',
+      },
+      filter: {
+        enabled: true,
+        placeholder: 'Filter right now',
+        icon: {
+          enabled: true,
+        },
+      },
     },
     endpoint: {
       isStore: true,
       value: store,
-      sortFunction: () => {}
+      sortFunction: () => {},
     },
     pagination: {
       enabled: true,
-      pageSize: 10,
+      page: {
+        size: 10,
+      },
       step: {
         limit: 1,
-        enabled: true
-      }
+        enabled: true,
+      },
     },
     item: {
-      clickFunction: item => {},
+      clickFunction: (item) => {},
       bold: {
         enabled: true,
-        count: 5
+        count: 5,
       },
       name: {
         enabled: true,
-        prop: 'name'
+        prop: 'name',
       },
       description: {
         enabled: true,
         prop: 'description',
-        isHTML: true
+        isHTML: true,
       },
       point: {
         enabled: true,
         prop: 'point',
-        isTimeago: false
+        isTimeago: false,
       },
       icon: {
         enabled: true,
-        prop: 'icon'
+        prop: 'icon',
       },
       index: {
-        enabled: true
+        enabled: true,
       },
       light: {
-        prop: 'light'
-      }
-    }
+        prop: 'light',
+      },
+    },
   }
 
   let promiseConfiguration = {
@@ -242,64 +284,69 @@
       classListModel: classListModel,
       isVisible: true,
       body: {
-        enabled: true
+        enabled: true,
       },
       search: {
         enabled: true,
         placeholder: 'Search right now',
         icon: {
-          enabled: true
-        }
+          enabled: true,
+        },
       },
       header: {
         enabled: true,
-        text: 'Example with store configuration'
-      }
+        text: 'Example with store configuration',
+      },
+      filter: {
+        enabled: false,
+      },
     },
     endpoint: {
       isStore: false,
       value: async () => items,
-      sortFunction: () => {}
+      sortFunction: () => {},
     },
     pagination: {
       enabled: true,
-      pageSize: 3,
       step: {
         limit: 1,
-        enabled: true
-      }
+        enabled: true,
+      },
+      page: {
+        size: 3,
+      },
     },
     item: {
-      clickFunction: item => {},
+      clickFunction: (item) => {},
       bold: {
         enabled: true,
-        count: 5
+        count: 5,
       },
       name: {
         enabled: true,
-        prop: 'name'
+        prop: 'name',
       },
       description: {
         enabled: true,
         prop: 'description',
-        isHTML: true
+        isHTML: true,
       },
       point: {
         enabled: true,
         prop: 'point',
-        isTimeago: false
+        isTimeago: false,
       },
       icon: {
         enabled: true,
-        prop: 'icon'
+        prop: 'icon',
       },
       index: {
-        enabled: true
+        enabled: true,
       },
       light: {
-        prop: 'light'
-      }
-    }
+        prop: 'light',
+      },
+    },
   }
 
   let customItemConfiguration = {
@@ -307,64 +354,69 @@
       classListModel: classListModel,
       isVisible: true,
       body: {
-        enabled: false
+        enabled: false,
       },
       search: {
         enabled: true,
         placeholder: 'Search by name now',
         icon: {
-          enabled: true
-        }
+          enabled: true,
+        },
       },
       header: {
         enabled: true,
-        text: 'Example with store configuration'
-      }
+        text: 'Example with store configuration',
+      },
+      filter: {
+        enabled: false,
+      },
     },
     endpoint: {
       isStore: false,
       value: async () => items,
-      sortFunction: () => {}
+      sortFunction: () => {},
     },
     pagination: {
       enabled: true,
-      pageSize: 3,
+      page: {
+        size: 3,
+      },
       step: {
         limit: 1,
-        enabled: true
-      }
+        enabled: true,
+      },
     },
     item: {
-      clickFunction: item => {},
+      clickFunction: (item) => {},
       bold: {
         enabled: true,
-        count: 5
+        count: 5,
       },
       name: {
         enabled: true,
-        prop: 'name'
+        prop: 'name',
       },
       description: {
         enabled: true,
         prop: 'description',
-        isHTML: true
+        isHTML: true,
       },
       point: {
         enabled: true,
         prop: 'point',
-        isTimeago: false
+        isTimeago: false,
       },
       icon: {
         enabled: true,
-        prop: 'icon'
+        prop: 'icon',
       },
       index: {
-        enabled: true
+        enabled: true,
       },
       light: {
-        prop: 'light'
-      }
-    }
+        prop: 'light',
+      },
+    },
   }
 </script>
 

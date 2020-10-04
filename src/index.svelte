@@ -6,139 +6,51 @@
   import Pagination from './components/Pagination.svelte'
   import Item from './components/Item.svelte'
   import Search from './components/Search.svelte'
+  import Filter from './components/Filter.svelte'
+
+  import { headerConfig } from './configurations/header.config'
+  import { bodyConfig } from './configurations/body.config'
+  import { searchConfig } from './configurations/search.config'
+  import { filterConfig } from './configurations/filter.config'
+  import { getItemConfig } from './configurations/item.config'
+  import { classList } from './configurations/config.dictionary'
+  import { paginationConfig } from './configurations/pagination.config'
+  import { getEndpointConfig } from './configurations/endpoint.config'
+  import { search } from './tools/search.tool'
+  import type { Configuration } from './configurations/config.interface'
+  import {
+    getSearchStep,
+    getDoubleSearchStep,
+    paginateItems,
+    getCurrentPage,
+  } from './tools/pagination.tool'
+  import { isEmpty } from './tools/item.tool'
 
   const items = writable([])
   const paginatedItems = writable([])
 
-  export let configuration = {
-    global: {
-      classListModel: {
-        root: 'item-list__item-container',
-        header: 'item-list__header_text',
-        item: {
-          root: 'item_list__item-text',
-          description: {
-            name: 'item_list_item-name-text',
-            root: 'item-list__description-root',
-            text: 'item-list__description-text'
-          },
-          icon: 'item-list__item-icon',
-          index: 'item-list__item-index',
-          point: 'item-list__item-point'
-        },
+  export let configuration: Configuration
 
-        pagination: {
-          root: 'item-list__pagination',
-          option: 'pagination__option',
-          arrow: {
-            doubleLeft: 'icon-angle-double-left',
-            left: 'icon-angle-left',
-            right: 'icon-angle-right',
-            doubleRight: 'icon-angle-double-right'
-          }
-        },
-
-        search: {
-          root: 'item-list__search',
-          input: 'item-list__search-input',
-          icon: {
-            root: 'icon-search'
-          }
-        }
-      },
-      isVisible: false,
-      body: {
-        enabled: true
-      },
-      header: {
-        enabled: true,
-        text: ''
-      },
-      search: {
-        enabled: true,
-        placeholder: 'Search right now',
-        icon: {
-          enabled: true
-        },
-        property: 'name'
-      }
-    },
-    endpoint: {
-      isStore: false,
-      value: async () => [],
-      sortFunction: (a, b) => {
-        return a[pointProp] - b[pointProp]
-      }
-    },
-    pagination: {
-      enabled: true,
-      pageSize: 3,
-      currentPageStore: null,
-      step: {
-        limit: 1,
-        enabled: true
-      }
-    },
-    item: {
-      clickFunction: item => {},
-      bold: {
-        enabled: true,
-        count: 5
-      },
-      name: {
-        enabled: true,
-        prop: 'name'
-      },
-      description: {
-        enabled: true,
-        prop: 'description',
-        isHTML: true
-      },
-      point: {
-        enabled: true,
-        prop: 'point',
-        isTimeago: false
-      },
-      icon: {
-        enabled: true,
-        prop: 'icon'
-      },
-      index: {
-        enabled: true
-      },
-      light: {
-        prop: 'light'
-      }
-    }
-  }
-
-  const currentPage = configuration.pagination.currentPageStore
-    ? configuration.pagination.currentPageStore
-    : writable(1)
+  const currentPage = getCurrentPage(configuration)
 
   const init = async () => {
-    currentPage.subscribe(value => {
+    const { size } = configuration.pagination.page
+
+    currentPage.subscribe((value) => {
       if (configuration.pagination.enabled) {
-        paginatedItems.set(
-          $items.slice(
-            (value - 1) * configuration.pagination.pageSize,
-            (value - 1) * configuration.pagination.pageSize +
-              configuration.pagination.pageSize
-          )
-        )
-      } else paginatedItems.set($items)
+        paginatedItems.set(paginateItems($items, value, size))
+      } else {
+        paginatedItems.set($items)
+      }
     })
 
-    items.subscribe(value => {
+    items.subscribe((value) => {
       if (configuration.pagination.enabled) {
-        paginatedItems.set(
-          value.slice(
-            ($currentPage - 1) * configuration.pagination.pageSize,
-            ($currentPage - 1) * configuration.pagination.pageSize +
-              configuration.pagination.pageSize
-          )
-        )
-      } else paginatedItems.set(value)
+        getSearchStep($currentPage, size)
+        paginatedItems.set(paginateItems(value, $currentPage, size))
+      } else {
+        paginatedItems.set(value)
+      }
     })
 
     await initItems(
@@ -151,13 +63,13 @@
 
   const initItems = async (endpoint, sortFunc, needIndex, endpointIsStore) => {
     if (endpointIsStore) {
-      endpoint.subscribe(e => {
+      endpoint.subscribe((e) => {
         e.sort(sortFunc)
 
         items.set(e)
 
         if (needIndex) {
-          items.update(item =>
+          items.update((item) =>
             item.map((item, index) => {
               item.index = ++index
               return item
@@ -184,25 +96,33 @@
     }
   }
 
-  const search = event => {
-    if (event.detail.length > 0) {
-      paginatedItems.set(
-        $items.filter(
-          item =>
-            item[configuration.global.search.property] &&
-            item[configuration.global.search.property].includes(event.detail)
+  const searchItems = (event) => {
+    search(event, $items, paginatedItems, configuration, $currentPage)
+  }
+
+  const filter = (event) => {
+    switch (event.detail) {
+      case 'minPoints':
+        items.set(
+          $items.sort((a, b) => {
+            return (
+              a[configuration.item.point.prop] -
+              b[configuration.item.point.prop]
+            )
+          })
         )
-      )
-    } else {
-      if (configuration.pagination.enabled) {
-        paginatedItems.set(
-          $items.slice(
-            ($currentPage - 1) * configuration.pagination.pageSize,
-            ($currentPage - 1) * configuration.pagination.pageSize +
-              configuration.pagination.pageSize
-          )
+        break
+
+      case 'maxPoints':
+        items.set(
+          $items.sort((a, b) => {
+            return (
+              b[configuration.item.point.prop] -
+              a[configuration.item.point.prop]
+            )
+          })
         )
-      } else paginatedItems.set($items)
+        break
     }
   }
 
@@ -210,26 +130,31 @@
 </script>
 
 {#if configuration.global.isVisible}
-
-  <div out:fade in:fade class={configuration.global.classListModel.root}>
+  <div class={configuration.global.classListModel.root}>
     {#if configuration.global.header.enabled}
       <div out:fade class={configuration.global.classListModel.header}>
         {configuration.global.header.text}
       </div>
     {/if}
 
-    {#if $items.length === 0}
+    {#if isEmpty($items)}
       <slot name="loading" />
     {:else}
       <slot name="header" />
 
-      {#if configuration.global.search.enabled}
-        <Search
-          configuration={configuration.global.search}
-          classListModel={configuration.global.classListModel}
-          on:search={search}
-        />
-      {/if}
+      <Search
+        enabled={configuration.global.search.enabled}
+        configuration={configuration.global.search}
+        classListModel={configuration.global.classListModel}
+        on:search={searchItems}
+      />
+
+      <Filter
+        enabled={configuration.global.filter.enabled}
+        configuration={configuration.global.filter}
+        classListModel={configuration.global.classListModel}
+        on:filter={filter}
+      />
 
       {#if configuration.global.body.enabled}
         {#each $paginatedItems as item}
@@ -238,29 +163,26 @@
             class:light={item[configuration.item.light.prop]}
             class={configuration.global.classListModel.item.root}
           >
-
             <Item
               configuration={configuration.item}
               classListModel={configuration.global.classListModel}
               {item}
             />
-
           </span>
         {/each}
       {:else}
         <slot items={$paginatedItems} name="body" />
       {/if}
 
-      {#if configuration.pagination.enabled}
-        <Pagination
-          totalItems={$items.length}
-          pageSize={configuration.pagination.pageSize}
-          limit={configuration.pagination.step.limit}
-          classListModel={configuration.global.classListModel}
-          {currentPage}
-          showStepOptions={configuration.pagination.step.enabled}
-        />
-      {/if}
+      <Pagination
+        enabled={configuration.pagination.enabled}
+        totalItems={$items.length}
+        pageSize={configuration.pagination.pageSize}
+        limit={configuration.pagination.step.limit}
+        classListModel={configuration.global.classListModel}
+        {currentPage}
+        showStepOptions={configuration.pagination.step.enabled}
+      />
     {/if}
   </div>
 {/if}
